@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GLB / GLTF Viewer — Free Online GLB / GLTF Viewer (No Upload) | 3DTools</title>
+<meta name="description" content="Free browser-based GLB / GLTF Viewer. Open GLB and GLTF files instantly, inspect geometry, measure and convert — files are processed locally and never uploaded.">
+<link rel="canonical" href="/viewer/glb-gltf-viewer.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="3DTools">
+<meta property="og:title" content="GLB / GLTF Viewer — Free Online GLB / GLTF Viewer (No Upload) | 3DTools">
+<meta property="og:description" content="Free browser-based GLB / GLTF Viewer. Open GLB and GLTF files instantly, inspect geometry, measure and convert — files are processed locally and never uploaded.">
+<meta property="og:url" content="https://3dtools.example/viewer/glb-gltf-viewer.html">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f7cff' d='M12 2 3 7v10l9 5 9-5V7z'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"GLB / GLTF Viewer — 3DTools","url":"https://3dtools.example/viewer/glb-gltf-viewer.html","applicationCategory":"DesignApplication","operatingSystem":"Any (modern browser)","browserRequirements":"Requires WebGL","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free browser-based GLB / GLTF Viewer. Open GLB and GLTF files instantly, inspect geometry, measure and convert — files are processed locally and never uploaded."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://3dtools.example/"},{"@type":"ListItem","position":2,"name":"Home","item":"https://3dtools.example/"},{"@type":"ListItem","position":3,"name":"Tools","item":"https://3dtools.example/tools.html"},{"@type":"ListItem","position":4,"name":"GLB / GLTF Viewer","item":"https://3dtools.example/viewer/glb-gltf-viewer.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between GLB and glTF?","acceptedAnswer":{"@type":"Answer","text":"They contain the same data. A .gltf file is a JSON file plus separate binary buffers (and textures); a .glb file packs the JSON and binary data into a single file."}},{"@type":"Question","name":"Why does my .gltf file fail to load?","acceptedAnswer":{"@type":"Answer","text":"Most .gltf files reference an external <code>.bin</code> buffer. Select the .gltf and the .bin file together (Ctrl/Cmd-click or multi-select), or use a .glb, which is self-contained."}},{"@type":"Question","name":"Are textures and PBR materials displayed?","acceptedAnswer":{"@type":"Answer","text":"No. 3DTools focuses on mesh geometry — vertices, triangles and structure. Materials are preserved in name only when converting between GLB and GLTF."}},{"@type":"Question","name":"Does it support Draco compression?","acceptedAnswer":{"@type":"Answer","text":"No. Files that require the Draco or meshopt extensions are detected and rejected with an explanatory error. Re-export the asset without compression."}}]}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="/"><span class="cube"></span>3DTools</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/tools.html">All Tools</a>
+      <a href="/formats.html">Formats</a>
+      <a href="/viewer/stl-viewer.html">Viewers</a>
+      <a href="/mesh-tools.html">Mesh Tools</a>
+      <a href="/3d-printing-tools.html">3D Printing</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </div>
+</header>
+<nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/">Home</a> &rsaquo; <a href="/tools.html">Tools</a> &rsaquo; <a href="/viewer/glb-gltf-viewer.html">GLB / GLTF Viewer</a></nav>
+<div class="page-hero"><div class="wrap">
+<h1>GLB / GLTF Viewer</h1>
+<p>Inspect glTF 2.0 assets — the standard 3D format of the web — locally in your browser. GLB (binary glTF) and .gltf JSON files are supported, including multiple meshes, node transforms and both index formats.</p><p>Everything runs locally in your browser using WebGL. Your file is never uploaded to a server, and the viewer works with files of many megabytes. If a file cannot be parsed, you get a clear error message instead of a silently blank screen.</p>
+<div class="wrap" style="padding-top:1.2rem"><a class="btn primary" href="/app.html?tool=glb-viewer">Open the GLB / GLTF Viewer</a> <span style="color:var(--text-dim);font-size:.9rem;margin-left:.6rem">Runs locally in your browser — your file never leaves your device.</span></div>
+</div></div>
+<section class="content-block"><div class="wrap"><h2 id="how">How to view a GLB file</h2>
+<ol>
+<li>Click <strong>Open the GLB / GLTF Viewer</strong> above (or open the <a href="/app.html">3DTools Studio</a>).</li>
+<li>Drag and drop your file onto the viewport, or click <strong>Open File(s)</strong>.</li>
+<li>Orbit with the left mouse button, zoom with the wheel, pan with the right button.</li>
+<li>Switch display modes (solid, wireframe, x-ray, normals, vertices) in the <strong>View</strong> tab.</li>
+<li>Measure, slice or analyze the model in the <strong>Analyze</strong> tab — or convert it to another format in the <strong>Convert</strong> tab.</li>
+</ol>
+<p>The viewer applies each node’s translation, rotation, scale and matrix transforms so models appear assembled as authored. For .gltf files that reference an external .bin buffer, select both files together in the file picker. Note that Draco- or meshopt-compressed assets are rejected with a clear message instead of failing silently, and textures are not rendered (geometry only).</p></div></section>
+<section class="content-block"><div class="wrap"><h2 id="formats">What is supported</h2>
+<table class="data">
+<tr><th>Feature</th><th>Support</th></tr>
+<tr><td>Binary and ASCII variants</td><td>Yes</td></tr>
+<tr><td>Solid rendering</td><td>Yes (WebGL, hardware-accelerated)</td></tr>
+<tr><td>Wireframe / X-ray / normals / vertices</td><td>Yes</td></tr>
+<tr><td>Multiple objects in one file</td><td>Yes — each becomes a separate model tab</td></tr>
+<tr><td>Textures and materials</td><td>Geometry is shown; textures are not rendered (color-only materials ignored)</td></tr>
+<tr><td>Draco / meshopt compression</td><td>Not supported (rejected with a clear error)</td></tr>
+<tr><td>File size</td><td>Limited by your device memory; heavy processing runs in a Web Worker</td></tr>
+</table></div></section>
+<section class="content-block"><div class="wrap"><h2 id="privacy">Privacy by architecture</h2>
+<p>This viewer has no upload endpoint at all. The file is read with the browser's <code>FileReader</code> API, parsed in JavaScript and rendered with WebGL — all on your machine. It also works offline once loaded. See the <a href="/privacy.html">privacy policy</a> for details.</p></div></section>
+<div class="wrap"><div class="ad-slot" aria-label="Advertisement"></div></div>
+<section class="content-block"><div class="wrap"><h2 id="faq">Frequently Asked Questions</h2><div class="faq"><details><summary>What is the difference between GLB and glTF?</summary><p>They contain the same data. A .gltf file is a JSON file plus separate binary buffers (and textures); a .glb file packs the JSON and binary data into a single file.</p></details>
+<details><summary>Why does my .gltf file fail to load?</summary><p>Most .gltf files reference an external <code>.bin</code> buffer. Select the .gltf and the .bin file together (Ctrl/Cmd-click or multi-select), or use a .glb, which is self-contained.</p></details>
+<details><summary>Are textures and PBR materials displayed?</summary><p>No. 3DTools focuses on mesh geometry — vertices, triangles and structure. Materials are preserved in name only when converting between GLB and GLTF.</p></details>
+<details><summary>Does it support Draco compression?</summary><p>No. Files that require the Draco or meshopt extensions are detected and rejected with an explanatory error. Re-export the asset without compression.</p></details></div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="related">Related Tools</h2><div class="card-grid"><a class="card" href="/viewer/stl-viewer.html"><span class="tag">Viewer</span><h3>STL Viewer</h3><p>Inspect binary and ASCII STL files with wireframe, x-ray and section views.</p></a><a class="card" href="/viewer/obj-viewer.html"><span class="tag">Viewer</span><h3>OBJ Viewer</h3><p>View OBJ files with per-object tabs and normal inspection.</p></a><a class="card" href="/viewer/ply-viewer.html"><span class="tag">Viewer</span><h3>PLY Viewer</h3><p>View ASCII and binary PLY meshes, including point clouds.</p></a><a class="card" href="/convert/stl-to-obj.html"><span class="tag">Converter</span><h3>STL to OBJ Converter</h3><p>Turn a triangle-only STL into an OBJ with vertices, normals and groups.</p></a></div></div></section>
+<footer class="site-footer">
+  <div class="inner">
+    <div>
+      <h4>3DTools</h4>
+      <p style="color:var(--text-dim);font-size:.85rem;margin:0">Free browser-based 3D model tools. All processing happens locally on your device — no uploads, no accounts, no tracking of your files.</p>
+    </div>
+    <div>
+      <h4>Viewers</h4>
+      <ul>
+        <li><a href="/viewer/stl-viewer.html">STL Viewer</a></li>
+        <li><a href="/viewer/obj-viewer.html">OBJ Viewer</a></li>
+        <li><a href="/viewer/glb-gltf-viewer.html">GLB/GLTF Viewer</a></li>
+        <li><a href="/viewer/ply-viewer.html">PLY Viewer</a></li>
+        <li><a href="/viewer/3mf-viewer.html">3MF Viewer</a></li>
+        <li><a href="/viewer/multi-model-viewer.html">Multi-Model Viewer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Converters</h4>
+      <ul>
+        <li><a href="/convert/stl-to-obj.html">STL to OBJ</a></li>
+        <li><a href="/convert/obj-to-stl.html">OBJ to STL</a></li>
+        <li><a href="/convert/stl-to-3mf.html">STL to 3MF</a></li>
+        <li><a href="/convert/obj-to-glb.html">OBJ to GLB</a></li>
+        <li><a href="/convert/glb-to-obj.html">GLB to OBJ</a></li>
+        <li><a href="/convert/gltf-to-glb.html">GLTF to GLB</a></li>
+        <li><a href="/convert/ply-to-obj.html">PLY to OBJ</a></li>
+        <li><a href="/convert/3mf-to-stl.html">3MF to STL</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Toolbox</h4>
+      <ul>
+        <li><a href="/mesh-tools.html">Mesh Repair & Editing</a></li>
+        <li><a href="/3d-printing-tools.html">3D Printing Tools</a></li>
+        <li><a href="/app.html">Open Studio</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <ul>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+        <li><a href="/terms.html">Terms of Use</a></li>
+        <li><a href="/disclaimer.html">Disclaimer</a></li>
+        <li><a href="/sitemap.xml">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-note wrap">&copy; 2026 3DTools. 3DTools processes models locally in your browser and never receives your files.</div>
+</footer>
+</body>
+</html>

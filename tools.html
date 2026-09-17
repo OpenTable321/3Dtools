@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All 3D Tools — Viewers, Converters, Mesh &amp; Printing Tools | 3DTools</title>
+<meta name="description" content="Complete list of 3DTools: format viewers, converters, mesh repair and editing tools, and 3D-printing analysis — all free, local and browser-based.">
+<link rel="canonical" href="/tools.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="3DTools">
+<meta property="og:title" content="All 3D Tools — Viewers, Converters, Mesh &amp; Printing Tools | 3DTools">
+<meta property="og:description" content="Complete list of 3DTools: format viewers, converters, mesh repair and editing tools, and 3D-printing analysis — all free, local and browser-based.">
+<meta property="og:url" content="https://3dtools.example/tools.html">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f7cff' d='M12 2 3 7v10l9 5 9-5V7z'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"All 3D Tools — Viewers, Converters, Mesh & Printing Tools | 3DTools","url":"https://3dtools.example/tools.html","applicationCategory":"DesignApplication","operatingSystem":"Any (modern browser)","browserRequirements":"Requires WebGL","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Complete list of 3DTools: format viewers, converters, mesh repair and editing tools, and 3D-printing analysis — all free, local and browser-based."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do I need to install anything?","acceptedAnswer":{"@type":"Answer","text":"No. The studio is a web page; all computation happens in your browser."}},{"@type":"Question","name":"Can I use several tools in a row?","acceptedAnswer":{"@type":"Answer","text":"Yes — the studio is a pipeline: load a file, repair it, decimate it, then convert and download. Each operation works on the current mesh."}},{"@type":"Question","name":"Which tools run in a worker?","acceptedAnswer":{"@type":"Answer","text":"All heavy operations (repair, decimation, hollowing, cutting, analysis) run in a Web Worker with a progress bar so the UI stays responsive."}}]}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="/"><span class="cube"></span>3DTools</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/tools.html" aria-current="page">All Tools</a>
+      <a href="/formats.html">Formats</a>
+      <a href="/viewer/stl-viewer.html">Viewers</a>
+      <a href="/mesh-tools.html">Mesh Tools</a>
+      <a href="/3d-printing-tools.html">3D Printing</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero"><div class="wrap">
+<h1>All tools</h1>
+<p>Every tool below is a real, working implementation running locally in your browser. The studio on the right side panel organizes them into View, Transform, Repair, Edit, Analyze and Convert.</p>
+<div class="wrap" style="padding-top:1.2rem"><a class="btn primary" href="/app.html">Open the Studio</a> <span style="color:var(--text-dim);font-size:.9rem;margin-left:.6rem">Runs locally in your browser — your file never leaves your device.</span></div>
+</div></div>
+<section class="content-block"><div class="wrap"><h2 id="viewers">Viewers</h2>
+<div class="card-grid">
+  <a class="card" href="/viewer/stl-viewer.html"><span class="tag">Viewer</span><h3>STL Viewer</h3><p>Binary and ASCII STL, with manifold check and repair pipeline.</p></a>
+  <a class="card" href="/viewer/obj-viewer.html"><span class="tag">Viewer</span><h3>OBJ Viewer</h3><p>Objects, groups, normals and UVs, multi-object tabs.</p></a>
+  <a class="card" href="/viewer/glb-gltf-viewer.html"><span class="tag">Viewer</span><h3>GLB/GLTF Viewer</h3><p>glTF 2.0 assets with node transforms applied.</p></a>
+  <a class="card" href="/viewer/ply-viewer.html"><span class="tag">Viewer</span><h3>PLY Viewer</h3><p>ASCII/binary PLY incl. vertex colors and point clouds.</p></a>
+  <a class="card" href="/viewer/3mf-viewer.html"><span class="tag">Viewer</span><h3>3MF Viewer</h3><p>Unpack and inspect 3MF print projects with build transforms.</p></a>
+  <a class="card" href="/viewer/multi-model-viewer.html"><span class="tag">Viewer</span><h3>Multi-Model Viewer</h3><p>Load many models side by side, compare, merge or split.</p></a>
+  <a class="card" href="/viewer/inspection-views.html"><span class="tag">Viewer</span><h3>Wireframe / X-Ray / Normals / Vertices</h3><p>Inspection display modes for every format.</p></a>
+</div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="converters">Converters</h2>
+<div class="card-grid">
+  <a class="card" href="/convert/stl-to-obj.html"><span class="tag">Convert</span><h3>STL → OBJ</h3><p>Weld triangle soup into a real indexed mesh.</p></a>
+  <a class="card" href="/convert/obj-to-stl.html"><span class="tag">Convert</span><h3>OBJ → STL</h3><p>Flatten OBJ objects into printable STL.</p></a>
+  <a class="card" href="/convert/stl-to-3mf.html"><span class="tag">Convert</span><h3>STL → 3MF</h3><p>Wrap triangles in a modern 3MF package.</p></a>
+  <a class="card" href="/convert/obj-to-glb.html"><span class="tag">Convert</span><h3>OBJ → GLB</h3><p>Produce single-file glTF web assets.</p></a>
+  <a class="card" href="/convert/glb-to-obj.html"><span class="tag">Convert</span><h3>GLB → OBJ</h3><p>Extract editable geometry from glTF.</p></a>
+  <a class="card" href="/convert/gltf-to-glb.html"><span class="tag">Convert</span><h3>GLTF → GLB</h3><p>Pack multi-file glTF into one .glb.</p></a>
+  <a class="card" href="/convert/ply-to-obj.html"><span class="tag">Convert</span><h3>PLY → OBJ</h3><p>Turn scans into OBJ meshes.</p></a>
+  <a class="card" href="/convert/3mf-to-stl.html"><span class="tag">Convert</span><h3>3MF → STL</h3><p>Unpack print projects for legacy slicers.</p></a>
+</div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="mesh">Mesh tools</h2>
+<p>Scale, rotate, mirror, center and align; repair (weld, dedupe faces, fix winding); recalculate or flip normals; simplify/decimate with quadric error metrics; merge and separate objects; delete selected faces or vertices; hollow shells; add base plates; cut and split by plane. See the <a href="/mesh-tools.html">mesh tools page</a> for details and limitations of each operation.</p></div></section>
+<section class="content-block"><div class="wrap"><h2 id="print">3D printing tools</h2>
+<p>Printability check, manifold/watertight check, wall thickness (approximate), overhang detection, mesh statistics, bounding box, volume, surface area, orientation, cross sections, distance/angle measurement and viewport screenshots. See the <a href="/3d-printing-tools.html">3D printing tools page</a>.</p></div></section>
+<div class="wrap"><div class="ad-slot" aria-label="Advertisement"></div></div>
+<section class="content-block"><div class="wrap"><h2 id="faq">Frequently Asked Questions</h2><div class="faq"><details><summary>Do I need to install anything?</summary><p>No. The studio is a web page; all computation happens in your browser.</p></details>
+<details><summary>Can I use several tools in a row?</summary><p>Yes — the studio is a pipeline: load a file, repair it, decimate it, then convert and download. Each operation works on the current mesh.</p></details>
+<details><summary>Which tools run in a worker?</summary><p>All heavy operations (repair, decimation, hollowing, cutting, analysis) run in a Web Worker with a progress bar so the UI stays responsive.</p></details></div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="related">Related Tools</h2><div class="card-grid"><a class="card" href="/app.html"><span class="tag">Tool</span><h3>Open Studio</h3><p>The full toolbox in one viewport.</p></a><a class="card" href="/formats.html"><span class="tag">Tool</span><h3>Supported Formats</h3><p>Capabilities per format.</p></a><a class="card" href="/mesh-tools.html"><span class="tag">Tool</span><h3>Mesh Tools</h3><p>Repair and editing details.</p></a><a class="card" href="/3d-printing-tools.html"><span class="tag">Tool</span><h3>3D Printing Tools</h3><p>Analysis details.</p></a></div></div></section>
+<footer class="site-footer">
+  <div class="inner">
+    <div>
+      <h4>3DTools</h4>
+      <p style="color:var(--text-dim);font-size:.85rem;margin:0">Free browser-based 3D model tools. All processing happens locally on your device — no uploads, no accounts, no tracking of your files.</p>
+    </div>
+    <div>
+      <h4>Viewers</h4>
+      <ul>
+        <li><a href="/viewer/stl-viewer.html">STL Viewer</a></li>
+        <li><a href="/viewer/obj-viewer.html">OBJ Viewer</a></li>
+        <li><a href="/viewer/glb-gltf-viewer.html">GLB/GLTF Viewer</a></li>
+        <li><a href="/viewer/ply-viewer.html">PLY Viewer</a></li>
+        <li><a href="/viewer/3mf-viewer.html">3MF Viewer</a></li>
+        <li><a href="/viewer/multi-model-viewer.html">Multi-Model Viewer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Converters</h4>
+      <ul>
+        <li><a href="/convert/stl-to-obj.html">STL to OBJ</a></li>
+        <li><a href="/convert/obj-to-stl.html">OBJ to STL</a></li>
+        <li><a href="/convert/stl-to-3mf.html">STL to 3MF</a></li>
+        <li><a href="/convert/obj-to-glb.html">OBJ to GLB</a></li>
+        <li><a href="/convert/glb-to-obj.html">GLB to OBJ</a></li>
+        <li><a href="/convert/gltf-to-glb.html">GLTF to GLB</a></li>
+        <li><a href="/convert/ply-to-obj.html">PLY to OBJ</a></li>
+        <li><a href="/convert/3mf-to-stl.html">3MF to STL</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Toolbox</h4>
+      <ul>
+        <li><a href="/mesh-tools.html">Mesh Repair & Editing</a></li>
+        <li><a href="/3d-printing-tools.html">3D Printing Tools</a></li>
+        <li><a href="/app.html">Open Studio</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <ul>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+        <li><a href="/terms.html">Terms of Use</a></li>
+        <li><a href="/disclaimer.html">Disclaimer</a></li>
+        <li><a href="/sitemap.xml">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-note wrap">&copy; 2026 3DTools. 3DTools processes models locally in your browser and never receives your files.</div>
+</footer>
+</body>
+</html>

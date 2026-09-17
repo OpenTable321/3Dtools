@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Disclaimer — Accuracy and Limitations of 3DTools</title>
+<meta name="description" content="Honest limitations of 3DTools: which mesh operations are exact, which are approximations, and why you should verify results before manufacturing.">
+<link rel="canonical" href="/disclaimer.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="3DTools">
+<meta property="og:title" content="Disclaimer — Accuracy and Limitations of 3DTools">
+<meta property="og:description" content="Honest limitations of 3DTools: which mesh operations are exact, which are approximations, and why you should verify results before manufacturing.">
+<meta property="og:url" content="https://3dtools.example/disclaimer.html">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f7cff' d='M12 2 3 7v10l9 5 9-5V7z'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Disclaimer — Accuracy and Limitations of 3DTools","url":"https://3dtools.example/disclaimer.html","applicationCategory":"DesignApplication","operatingSystem":"Any (modern browser)","browserRequirements":"Requires WebGL","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Honest limitations of 3DTools: which mesh operations are exact, which are approximations, and why you should verify results before manufacturing."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I trust the printability check?","acceptedAnswer":{"@type":"Answer","text":"It checks the listed geometric criteria exactly and flags approximations as such — but no software guarantees a successful print."}},{"@type":"Question","name":"Is converted geometry identical?","acceptedAnswer":{"@type":"Answer","text":"Geometry yes; attributes that the target format cannot represent (colors in STL, materials everywhere) cannot survive conversion."}}]}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="/"><span class="cube"></span>3DTools</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/tools.html">All Tools</a>
+      <a href="/formats.html">Formats</a>
+      <a href="/viewer/stl-viewer.html">Viewers</a>
+      <a href="/mesh-tools.html">Mesh Tools</a>
+      <a href="/3d-printing-tools.html">3D Printing</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero"><div class="wrap">
+<h1>Disclaimer</h1>
+<p>3DTools performs real mesh computations, but every tool has limits. This page states them plainly so you can judge the results.</p>
+
+</div></div>
+<section class="content-block"><div class="wrap"><h2 id="exact">What is exact</h2><ul>
+<li>Format parsing and conversion of mesh geometry (vertices, triangles, normals, UVs where the target format supports them).</li>
+<li>Volume and surface area (exact for watertight meshes), bounding boxes, triangle/vertex counts.</li>
+<li>Manifold/watertight topology checks (boundary, non-manifold edges and vertices).</li>
+<li>Overhang angle classification per face.</li>
+</ul></div></section>
+<section class="content-block"><div class="wrap"><h2 id="approx">What is approximate</h2><ul>
+<li><strong>Wall thickness</strong> — ray-sampling estimation; can locally over/under-estimate on concave geometry.</li>
+<li><strong>Hollow shell</strong> — inward normal offset; self-intersects where the model is thinner than ~2× the wall.</li>
+<li><strong>Auto-orientation</strong> — rotates the dominant face-normal direction down; not a stability-optimized packing.</li>
+<li><strong>Add Base</strong> — a rectangular plate under the footprint, not a conformal raft.</li>
+<li><strong>Decimation</strong> — lossy by definition; quadric error is minimized, not eliminated.</li>
+</ul></div></section>
+<section class="content-block"><div class="wrap"><h2 id="responsibility">Your responsibility</h2><p>Verify results (manifold check, visual inspection, cross sections) before printing, machining or shipping anything based on them. 3DTools is not certified engineering software. Nothing here is professional advice.</p></div></section>
+<div class="wrap"><div class="ad-slot" aria-label="Advertisement"></div></div>
+<section class="content-block"><div class="wrap"><h2 id="faq">Frequently Asked Questions</h2><div class="faq"><details><summary>Can I trust the printability check?</summary><p>It checks the listed geometric criteria exactly and flags approximations as such — but no software guarantees a successful print.</p></details>
+<details><summary>Is converted geometry identical?</summary><p>Geometry yes; attributes that the target format cannot represent (colors in STL, materials everywhere) cannot survive conversion.</p></details></div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="related">Related Tools</h2><div class="card-grid"><a class="card" href="/3d-printing-tools.html"><span class="tag">Tool</span><h3>3D Printing Tools</h3><p>What the checks compute.</p></a><a class="card" href="/mesh-tools.html"><span class="tag">Tool</span><h3>Mesh Tools</h3><p>Operation details.</p></a><a class="card" href="/terms.html"><span class="tag">Tool</span><h3>Terms</h3><p>Usage terms.</p></a><a class="card" href="/contact.html"><span class="tag">Tool</span><h3>Contact</h3><p>Report a problem.</p></a></div></div></section>
+<footer class="site-footer">
+  <div class="inner">
+    <div>
+      <h4>3DTools</h4>
+      <p style="color:var(--text-dim);font-size:.85rem;margin:0">Free browser-based 3D model tools. All processing happens locally on your device — no uploads, no accounts, no tracking of your files.</p>
+    </div>
+    <div>
+      <h4>Viewers</h4>
+      <ul>
+        <li><a href="/viewer/stl-viewer.html">STL Viewer</a></li>
+        <li><a href="/viewer/obj-viewer.html">OBJ Viewer</a></li>
+        <li><a href="/viewer/glb-gltf-viewer.html">GLB/GLTF Viewer</a></li>
+        <li><a href="/viewer/ply-viewer.html">PLY Viewer</a></li>
+        <li><a href="/viewer/3mf-viewer.html">3MF Viewer</a></li>
+        <li><a href="/viewer/multi-model-viewer.html">Multi-Model Viewer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Converters</h4>
+      <ul>
+        <li><a href="/convert/stl-to-obj.html">STL to OBJ</a></li>
+        <li><a href="/convert/obj-to-stl.html">OBJ to STL</a></li>
+        <li><a href="/convert/stl-to-3mf.html">STL to 3MF</a></li>
+        <li><a href="/convert/obj-to-glb.html">OBJ to GLB</a></li>
+        <li><a href="/convert/glb-to-obj.html">GLB to OBJ</a></li>
+        <li><a href="/convert/gltf-to-glb.html">GLTF to GLB</a></li>
+        <li><a href="/convert/ply-to-obj.html">PLY to OBJ</a></li>
+        <li><a href="/convert/3mf-to-stl.html">3MF to STL</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Toolbox</h4>
+      <ul>
+        <li><a href="/mesh-tools.html">Mesh Repair & Editing</a></li>
+        <li><a href="/3d-printing-tools.html">3D Printing Tools</a></li>
+        <li><a href="/app.html">Open Studio</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <ul>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+        <li><a href="/terms.html">Terms of Use</a></li>
+        <li><a href="/disclaimer.html">Disclaimer</a></li>
+        <li><a href="/sitemap.xml">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-note wrap">&copy; 2026 3DTools. 3DTools processes models locally in your browser and never receives your files.</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About 3DTools — Local-First 3D Model Toolbox</title>
+<meta name="description" content="3DTools is a free, local-first toolbox for viewing, converting, repairing and analyzing 3D meshes. Learn how it works and what it deliberately is not.">
+<link rel="canonical" href="/about.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="3DTools">
+<meta property="og:title" content="About 3DTools — Local-First 3D Model Toolbox">
+<meta property="og:description" content="3DTools is a free, local-first toolbox for viewing, converting, repairing and analyzing 3D meshes. Learn how it works and what it deliberately is not.">
+<meta property="og:url" content="https://3dtools.example/about.html">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f7cff' d='M12 2 3 7v10l9 5 9-5V7z'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"About 3DTools — Local-First 3D Model Toolbox","url":"https://3dtools.example/about.html","applicationCategory":"DesignApplication","operatingSystem":"Any (modern browser)","browserRequirements":"Requires WebGL","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"3DTools is a free, local-first toolbox for viewing, converting, repairing and analyzing 3D meshes. Learn how it works and what it deliberately is not."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Who makes 3DTools?","acceptedAnswer":{"@type":"Answer","text":"An independent developer. See the <a href=\"/contact.html\">contact page</a>."}},{"@type":"Question","name":"How is it funded?","acceptedAnswer":{"@type":"Answer","text":"Plain, clearly-labeled display advertising that never mimics functional controls. No data sales — there is no data to sell."}},{"@type":"Question","name":"Can I self-host it?","acceptedAnswer":{"@type":"Answer","text":"Yes — it is a static site: any static file host serves it as-is."}}]}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="/"><span class="cube"></span>3DTools</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/tools.html">All Tools</a>
+      <a href="/formats.html">Formats</a>
+      <a href="/viewer/stl-viewer.html">Viewers</a>
+      <a href="/mesh-tools.html">Mesh Tools</a>
+      <a href="/3d-printing-tools.html">3D Printing</a>
+      <a href="/about.html" aria-current="page">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero"><div class="wrap">
+<h1>About 3DTools</h1>
+<p>3DTools is a browser-based toolbox for triangle-mesh models. It exists because most “free online 3D tools” are upload pipelines wrapped in ads: your model goes to a server, waits in a queue, and comes back. 3DTools is the opposite — a static page where <strong>all computation happens on your device</strong>.</p>
+
+</div></div>
+<section class="content-block"><div class="wrap"><h2 id="principles">Principles</h2>
+<ul>
+<li><strong>Local by architecture, not by promise.</strong> There is no upload endpoint in the code. Model processing uses the File API, typed arrays, Web Workers and WebGL.</li>
+<li><strong>Real functionality only.</strong> Every button does something. Approximate operations (e.g., wall thickness, hollowing) are labeled as approximations with their limitations documented.</li>
+<li><strong>Deep support for few formats</strong> over shallow support for many. Five formats, honestly implemented, with clear errors for unsupported files.</li>
+<li><strong>No dark patterns.</strong> Ads are visually separated from functional controls, nothing auto-downloads, nothing pops up over the 3D viewport.</li>
+</ul></div></section>
+<section class="content-block"><div class="wrap"><h2 id="stack">Under the hood</h2>
+<p>The mesh core (parsers, exporters, geometry operations, analysis) is dependency-free JavaScript operating on typed arrays — the same code runs in the browser and in Node.js, where the automated test suite exercises it. Rendering uses <a href="https://threejs.org">Three.js</a> (WebGL). Heavy operations run in a Web Worker so the UI stays interactive. 3MF containers are unpacked with the browser's native decompression. No WASM is required for the supported feature set; where a task needs it in the future it will be bundled locally, not fetched from a CDN at runtime.</p></div></section>
+<section class="content-block"><div class="wrap"><h2 id="scope">What it is not</h2><p>3DTools is not CAD software. It does not edit parametric solids, run boolean operations on NURBS, manage assemblies with constraints, or slice models into G-code. If you need those, use a real CAD or slicer application — this toolbox covers the mesh-level work around them.</p></div></section>
+<div class="wrap"><div class="ad-slot" aria-label="Advertisement"></div></div>
+<section class="content-block"><div class="wrap"><h2 id="faq">Frequently Asked Questions</h2><div class="faq"><details><summary>Who makes 3DTools?</summary><p>An independent developer. See the <a href="/contact.html">contact page</a>.</p></details>
+<details><summary>How is it funded?</summary><p>Plain, clearly-labeled display advertising that never mimics functional controls. No data sales — there is no data to sell.</p></details>
+<details><summary>Can I self-host it?</summary><p>Yes — it is a static site: any static file host serves it as-is.</p></details></div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="related">Related Tools</h2><div class="card-grid"><a class="card" href="/privacy.html"><span class="tag">Tool</span><h3>Privacy Policy</h3><p>What (little) data exists.</p></a><a class="card" href="/formats.html"><span class="tag">Tool</span><h3>Formats</h3><p>Supported formats and limits.</p></a><a class="card" href="/tools.html"><span class="tag">Tool</span><h3>All Tools</h3><p>Browse the toolbox.</p></a><a class="card" href="/app.html"><span class="tag">Tool</span><h3>Open Studio</h3><p>Try it now.</p></a></div></div></section>
+<footer class="site-footer">
+  <div class="inner">
+    <div>
+      <h4>3DTools</h4>
+      <p style="color:var(--text-dim);font-size:.85rem;margin:0">Free browser-based 3D model tools. All processing happens locally on your device — no uploads, no accounts, no tracking of your files.</p>
+    </div>
+    <div>
+      <h4>Viewers</h4>
+      <ul>
+        <li><a href="/viewer/stl-viewer.html">STL Viewer</a></li>
+        <li><a href="/viewer/obj-viewer.html">OBJ Viewer</a></li>
+        <li><a href="/viewer/glb-gltf-viewer.html">GLB/GLTF Viewer</a></li>
+        <li><a href="/viewer/ply-viewer.html">PLY Viewer</a></li>
+        <li><a href="/viewer/3mf-viewer.html">3MF Viewer</a></li>
+        <li><a href="/viewer/multi-model-viewer.html">Multi-Model Viewer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Converters</h4>
+      <ul>
+        <li><a href="/convert/stl-to-obj.html">STL to OBJ</a></li>
+        <li><a href="/convert/obj-to-stl.html">OBJ to STL</a></li>
+        <li><a href="/convert/stl-to-3mf.html">STL to 3MF</a></li>
+        <li><a href="/convert/obj-to-glb.html">OBJ to GLB</a></li>
+        <li><a href="/convert/glb-to-obj.html">GLB to OBJ</a></li>
+        <li><a href="/convert/gltf-to-glb.html">GLTF to GLB</a></li>
+        <li><a href="/convert/ply-to-obj.html">PLY to OBJ</a></li>
+        <li><a href="/convert/3mf-to-stl.html">3MF to STL</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Toolbox</h4>
+      <ul>
+        <li><a href="/mesh-tools.html">Mesh Repair & Editing</a></li>
+        <li><a href="/3d-printing-tools.html">3D Printing Tools</a></li>
+        <li><a href="/app.html">Open Studio</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <ul>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+        <li><a href="/terms.html">Terms of Use</a></li>
+        <li><a href="/disclaimer.html">Disclaimer</a></li>
+        <li><a href="/sitemap.xml">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-note wrap">&copy; 2026 3DTools. 3DTools processes models locally in your browser and never receives your files.</div>
+</footer>
+</body>
+</html>

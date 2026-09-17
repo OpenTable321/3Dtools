@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OBJ to GLB Converter — Free &amp; Local | 3DTools</title>
+<meta name="description" content="Convert OBJ to GLB online for free. Files are converted locally in your browser — no upload, no queue, no email. Works with large files and shows real errors.">
+<link rel="canonical" href="/convert/obj-to-glb.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="3DTools">
+<meta property="og:title" content="OBJ to GLB Converter — Free &amp; Local | 3DTools">
+<meta property="og:description" content="Convert OBJ to GLB online for free. Files are converted locally in your browser — no upload, no queue, no email. Works with large files and shows real errors.">
+<meta property="og:url" content="https://3dtools.example/convert/obj-to-glb.html">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f7cff' d='M12 2 3 7v10l9 5 9-5V7z'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"OBJ to GLB Converter — 3DTools","url":"https://3dtools.example/convert/obj-to-glb.html","applicationCategory":"DesignApplication","operatingSystem":"Any (modern browser)","browserRequirements":"Requires WebGL","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Convert OBJ to GLB online for free. Files are converted locally in your browser — no upload, no queue, no email. Works with large files and shows real errors."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://3dtools.example/"},{"@type":"ListItem","position":2,"name":"Home","item":"https://3dtools.example/"},{"@type":"ListItem","position":3,"name":"Tools","item":"https://3dtools.example/tools.html"},{"@type":"ListItem","position":4,"name":"OBJ → GLB","item":"https://3dtools.example/convert/obj-to-glb.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does the GLB include textures from the .mtl file?","acceptedAnswer":{"@type":"Answer","text":"No — this is a geometry converter. UV coordinates are preserved so you can re-apply materials in any glTF editor."}},{"@type":"Question","name":"Is the GLB spec-compliant?","acceptedAnswer":{"@type":"Answer","text":"Yes: glTF 2.0 with a JSON chunk, binary buffer, accessors with min/max, and index buffers, generated with correct 4-byte alignment and padding."}},{"@type":"Question","name":"Can I convert back?","acceptedAnswer":{"@type":"Answer","text":"Yes — load the GLB and export OBJ (or STL, PLY, 3MF) from the same studio."}}]}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="/"><span class="cube"></span>3DTools</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/tools.html">All Tools</a>
+      <a href="/formats.html">Formats</a>
+      <a href="/viewer/stl-viewer.html">Viewers</a>
+      <a href="/mesh-tools.html">Mesh Tools</a>
+      <a href="/3d-printing-tools.html">3D Printing</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </div>
+</header>
+<nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/">Home</a> &rsaquo; <a href="/tools.html">Tools</a> &rsaquo; <a href="/convert/obj-to-glb.html">OBJ → GLB</a></nav>
+<div class="page-hero"><div class="wrap">
+<h1>OBJ to GLB Converter</h1>
+<p>Convert OBJ files to GLB directly in your browser. There is no server-side conversion: your file is parsed, rebuilt in the target format and downloaded — all on your device, so even confidential models stay private and there is no file-size quota.</p>
+<div class="wrap" style="padding-top:1.2rem"><a class="btn primary" href="/app.html?tool=obj-to-glb">Convert OBJ to GLB</a> <span style="color:var(--text-dim);font-size:.9rem;margin-left:.6rem">Runs locally in your browser — your file never leaves your device.</span></div>
+</div></div>
+<section class="content-block"><div class="wrap"><h2 id="how">How to convert</h2>
+<ol>
+<li>Open the studio with the button above.</li>
+<li>Drop in your <strong>OBJ</strong> file (or several files at once).</li>
+<li>Open the <strong>Convert</strong> tab, pick <strong>GLB</strong> and click <strong>Convert & Download</strong>.</li>
+<li>The converted file downloads immediately.</li>
+</ol>
+<p>GLB is the single-file binary glTF used across the web — three.js, Babylon.js, model viewers and AR frameworks all load it natively. Converting OBJ to GLB gives you a compact, indexed, runtime-ready asset.</p></div></section>
+<section class="content-block"><div class="wrap"><h2 id="formats">About these formats</h2>
+<table class="data">
+<tr><th></th><th>OBJ</th><th>GLB</th></tr>
+<tr><td>Type</td><td>Text-based polygon list</td><td>Binary glTF 2.0 container</td></tr>
+<tr><td>Typical use</td><td>General 3D / DCC tools</td><td>Web, AR/VR, runtime engines</td></tr>
+<tr><td>Multiple objects</td><td>Yes — o/g groups become objects</td><td>Yes — multiple meshes and nodes</td></tr>
+<tr><td>Normals & UVs</td><td>Vertex normals and UVs</td><td>Normals and UVs</td></tr>
+<tr><td>Units</td><td>None defined</td><td>Meters (per glTF spec)</td></tr>
+</table>
+<p>Each OBJ object becomes a glTF mesh/node. Vertex normals and UVs are carried over; 32-bit indices are used automatically when a mesh exceeds 65,536 vertices.</p></div></section>
+<section class="content-block"><div class="wrap"><h2 id="limits">Limitations</h2>
+<ul>
+<li>Geometry (vertices, triangles, normals) is converted. Materials, textures and animations are not part of the mesh-only pipeline and are not carried over.</li>
+<li>OBJ material libraries (.mtl) and textures are not written by this converter.</li>
+<li>Very large models are processed in a background worker, but browser memory is the practical limit.</li>
+</ul></div></section>
+<div class="wrap"><div class="ad-slot" aria-label="Advertisement"></div></div>
+<section class="content-block"><div class="wrap"><h2 id="faq">Frequently Asked Questions</h2><div class="faq"><details><summary>Does the GLB include textures from the .mtl file?</summary><p>No — this is a geometry converter. UV coordinates are preserved so you can re-apply materials in any glTF editor.</p></details>
+<details><summary>Is the GLB spec-compliant?</summary><p>Yes: glTF 2.0 with a JSON chunk, binary buffer, accessors with min/max, and index buffers, generated with correct 4-byte alignment and padding.</p></details>
+<details><summary>Can I convert back?</summary><p>Yes — load the GLB and export OBJ (or STL, PLY, 3MF) from the same studio.</p></details></div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="related">Related Tools</h2><div class="card-grid"><a class="card" href="/convert/stl-to-obj.html"><span class="tag">Converter</span><h3>STL to OBJ Converter</h3><p>Turn a triangle-only STL into an OBJ with vertices, normals and groups.</p></a><a class="card" href="/convert/obj-to-stl.html"><span class="tag">Converter</span><h3>OBJ to STL Converter</h3><p>Prepare OBJ models for 3D printing by converting to watertight-ready STL.</p></a><a class="card" href="/convert/stl-to-3mf.html"><span class="tag">Converter</span><h3>STL to 3MF Converter</h3><p>Wrap STL geometry in the modern 3MF printing package.</p></a><a class="card" href="/convert/glb-to-obj.html"><span class="tag">Converter</span><h3>GLB to OBJ Converter</h3><p>Extract editable OBJ geometry from binary glTF assets.</p></a></div></div></section>
+<footer class="site-footer">
+  <div class="inner">
+    <div>
+      <h4>3DTools</h4>
+      <p style="color:var(--text-dim);font-size:.85rem;margin:0">Free browser-based 3D model tools. All processing happens locally on your device — no uploads, no accounts, no tracking of your files.</p>
+    </div>
+    <div>
+      <h4>Viewers</h4>
+      <ul>
+        <li><a href="/viewer/stl-viewer.html">STL Viewer</a></li>
+        <li><a href="/viewer/obj-viewer.html">OBJ Viewer</a></li>
+        <li><a href="/viewer/glb-gltf-viewer.html">GLB/GLTF Viewer</a></li>
+        <li><a href="/viewer/ply-viewer.html">PLY Viewer</a></li>
+        <li><a href="/viewer/3mf-viewer.html">3MF Viewer</a></li>
+        <li><a href="/viewer/multi-model-viewer.html">Multi-Model Viewer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Converters</h4>
+      <ul>
+        <li><a href="/convert/stl-to-obj.html">STL to OBJ</a></li>
+        <li><a href="/convert/obj-to-stl.html">OBJ to STL</a></li>
+        <li><a href="/convert/stl-to-3mf.html">STL to 3MF</a></li>
+        <li><a href="/convert/obj-to-glb.html">OBJ to GLB</a></li>
+        <li><a href="/convert/glb-to-obj.html">GLB to OBJ</a></li>
+        <li><a href="/convert/gltf-to-glb.html">GLTF to GLB</a></li>
+        <li><a href="/convert/ply-to-obj.html">PLY to OBJ</a></li>
+        <li><a href="/convert/3mf-to-stl.html">3MF to STL</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Toolbox</h4>
+      <ul>
+        <li><a href="/mesh-tools.html">Mesh Repair & Editing</a></li>
+        <li><a href="/3d-printing-tools.html">3D Printing Tools</a></li>
+        <li><a href="/app.html">Open Studio</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <ul>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+        <li><a href="/terms.html">Terms of Use</a></li>
+        <li><a href="/disclaimer.html">Disclaimer</a></li>
+        <li><a href="/sitemap.xml">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-note wrap">&copy; 2026 3DTools. 3DTools processes models locally in your browser and never receives your files.</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3DTools — Free Local 3D Model Viewer, Converter &amp; Mesh Repair</title>
+<meta name="description" content="View, convert, repair and analyze STL, OBJ, GLB, PLY and 3MF models entirely in your browser. No uploads, no accounts — every operation runs locally on your device.">
+<link rel="canonical" href="/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="3DTools">
+<meta property="og:title" content="3DTools — Free Local 3D Model Viewer, Converter &amp; Mesh Repair">
+<meta property="og:description" content="View, convert, repair and analyze STL, OBJ, GLB, PLY and 3MF models entirely in your browser. No uploads, no accounts — every operation runs locally on your device.">
+<meta property="og:url" content="https://3dtools.example/">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f7cff' d='M12 2 3 7v10l9 5 9-5V7z'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"3DTools — Free Local 3D Model Viewer, Converter & Mesh Repair","url":"https://3dtools.example/","applicationCategory":"DesignApplication","operatingSystem":"Any (modern browser)","browserRequirements":"Requires WebGL","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"View, convert, repair and analyze STL, OBJ, GLB, PLY and 3MF models entirely in your browser. No uploads, no accounts — every operation runs locally on your device."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is 3DTools really free?","acceptedAnswer":{"@type":"Answer","text":"Yes. There is no account system, no paid tier and no file limit enforced by a server — because there is no server."}},{"@type":"Question","name":"Where are my files processed?","acceptedAnswer":{"@type":"Answer","text":"Entirely on your device, in your browser. The site is static hosting; nothing you open is transmitted anywhere."}},{"@type":"Question","name":"Which formats are supported?","acceptedAnswer":{"@type":"Answer","text":"STL (binary + ASCII), OBJ, PLY (binary + ASCII, incl. point clouds), GLB and GLTF 2.0, and 3MF (core spec). See the <a href=\"/formats.html\">formats page</a> for details and limitations."}},{"@type":"Question","name":"Does it work offline?","acceptedAnswer":{"@type":"Answer","text":"Once the page has loaded, yes — no network requests are made during model processing."}},{"@type":"Question","name":"What are the hardware requirements?","acceptedAnswer":{"@type":"Answer","text":"Any machine with a WebGL-capable browser. Large meshes are handled in a worker thread; very large files are limited by your device’s memory."}}]}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="/"><span class="cube"></span>3DTools</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/" aria-current="page">Home</a>
+      <a href="/tools.html">All Tools</a>
+      <a href="/formats.html">Formats</a>
+      <a href="/viewer/stl-viewer.html">Viewers</a>
+      <a href="/mesh-tools.html">Mesh Tools</a>
+      <a href="/3d-printing-tools.html">3D Printing</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero"><div class="wrap">
+<h1>3D model tools that never see your files</h1>
+<p>3DTools is a browser-based toolbox for triangle meshes: a fast WebGL viewer, format converters, mesh repair and editing, and 3D-printing analysis. Everything runs <strong>locally in your browser</strong> — there is no server, no upload and no account. Your models never leave your device.</p>
+<div class="wrap" style="padding-top:1.2rem"><a class="btn primary" href="/app.html">Open 3DTools Studio</a> <span style="color:var(--text-dim);font-size:.9rem;margin-left:.6rem">No sign-up. Drop in a file and start working.</span></div>
+</div></div>
+<section class="content-block"><div class="wrap"><h2 id="tools">What you can do</h2>
+<div class="card-grid">
+  <a class="card" href="/viewer/stl-viewer.html"><span class="tag">View</span><h3>View any major format</h3><p>STL, OBJ, GLB/GLTF, PLY and 3MF — with wireframe, x-ray, normal and vertex inspection modes, measurement and cross-sections.</p></a>
+  <a class="card" href="/convert/stl-to-obj.html"><span class="tag">Convert</span><h3>Convert between formats</h3><p>Eight well-defined conversion paths between the five supported formats, processed locally with real error messages.</p></a>
+  <a class="card" href="/mesh-tools.html"><span class="tag">Repair</span><h3>Repair and edit meshes</h3><p>Weld duplicate vertices, fix winding and inside-out meshes, remove degenerate faces, decimate, hollow, cut and split.</p></a>
+  <a class="card" href="/3d-printing-tools.html"><span class="tag">Print</span><h3>Prepare for 3D printing</h3><p>Manifold and watertight checks, overhang detection, wall thickness estimation, printability report and orientation tools.</p></a>
+</div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="how">How it works</h2>
+<p>3DTools is a static website. The entire application — parsers for every format, mesh algorithms and the WebGL renderer — is plain JavaScript that your browser downloads once. Files you open are read with the browser's File API and parsed in memory; heavy operations run in <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API">Web Workers</a> so the interface never freezes. When you convert a model, the result is assembled in memory and handed to your browser's download manager. At no point does any model data travel over the network.</p>
+<div class="callout"><strong>No fake buttons.</strong> Every tool on this site is a real implementation with documented limitations — where an operation is approximate (e.g., wall-thickness estimation), the interface says so.</div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="who">Who it is for</h2>
+<p><strong>3D printing users</strong> check printability, repair downloaded models and convert between STL, OBJ and 3MF. <strong>Developers</strong> inspect glTF assets and verify mesh data. <strong>Designers</strong> quickly preview files without installing a full CAD suite. If you need full CAD (parametric solids, booleans on NURBS, assemblies with constraints), 3DTools is not that — it is a mesh toolbox, and it does not pretend otherwise.</p></div></section>
+<div class="wrap"><div class="ad-slot" aria-label="Advertisement"></div></div>
+<section class="content-block"><div class="wrap"><h2 id="faq">Frequently Asked Questions</h2><div class="faq"><details><summary>Is 3DTools really free?</summary><p>Yes. There is no account system, no paid tier and no file limit enforced by a server — because there is no server.</p></details>
+<details><summary>Where are my files processed?</summary><p>Entirely on your device, in your browser. The site is static hosting; nothing you open is transmitted anywhere.</p></details>
+<details><summary>Which formats are supported?</summary><p>STL (binary + ASCII), OBJ, PLY (binary + ASCII, incl. point clouds), GLB and GLTF 2.0, and 3MF (core spec). See the <a href="/formats.html">formats page</a> for details and limitations.</p></details>
+<details><summary>Does it work offline?</summary><p>Once the page has loaded, yes — no network requests are made during model processing.</p></details>
+<details><summary>What are the hardware requirements?</summary><p>Any machine with a WebGL-capable browser. Large meshes are handled in a worker thread; very large files are limited by your device’s memory.</p></details></div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="related">Related Tools</h2><div class="card-grid"><a class="card" href="/viewer/stl-viewer.html"><span class="tag">Viewer</span><h3>STL Viewer</h3><p>Inspect STL files with wireframe, x-ray and section views.</p></a><a class="card" href="/mesh-tools.html"><span class="tag">Tool</span><h3>Mesh Tools</h3><p>Repair, decimate, hollow, cut and merge meshes.</p></a><a class="card" href="/3d-printing-tools.html"><span class="tag">Tool</span><h3>3D Printing Tools</h3><p>Manifold, overhang and printability analysis.</p></a><a class="card" href="/formats.html"><span class="tag">Tool</span><h3>Supported Formats</h3><p>What each format contains and what 3DTools does with it.</p></a></div></div></section>
+<footer class="site-footer">
+  <div class="inner">
+    <div>
+      <h4>3DTools</h4>
+      <p style="color:var(--text-dim);font-size:.85rem;margin:0">Free browser-based 3D model tools. All processing happens locally on your device — no uploads, no accounts, no tracking of your files.</p>
+    </div>
+    <div>
+      <h4>Viewers</h4>
+      <ul>
+        <li><a href="/viewer/stl-viewer.html">STL Viewer</a></li>
+        <li><a href="/viewer/obj-viewer.html">OBJ Viewer</a></li>
+        <li><a href="/viewer/glb-gltf-viewer.html">GLB/GLTF Viewer</a></li>
+        <li><a href="/viewer/ply-viewer.html">PLY Viewer</a></li>
+        <li><a href="/viewer/3mf-viewer.html">3MF Viewer</a></li>
+        <li><a href="/viewer/multi-model-viewer.html">Multi-Model Viewer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Converters</h4>
+      <ul>
+        <li><a href="/convert/stl-to-obj.html">STL to OBJ</a></li>
+        <li><a href="/convert/obj-to-stl.html">OBJ to STL</a></li>
+        <li><a href="/convert/stl-to-3mf.html">STL to 3MF</a></li>
+        <li><a href="/convert/obj-to-glb.html">OBJ to GLB</a></li>
+        <li><a href="/convert/glb-to-obj.html">GLB to OBJ</a></li>
+        <li><a href="/convert/gltf-to-glb.html">GLTF to GLB</a></li>
+        <li><a href="/convert/ply-to-obj.html">PLY to OBJ</a></li>
+        <li><a href="/convert/3mf-to-stl.html">3MF to STL</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Toolbox</h4>
+      <ul>
+        <li><a href="/mesh-tools.html">Mesh Repair & Editing</a></li>
+        <li><a href="/3d-printing-tools.html">3D Printing Tools</a></li>
+        <li><a href="/app.html">Open Studio</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <ul>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+        <li><a href="/terms.html">Terms of Use</a></li>
+        <li><a href="/disclaimer.html">Disclaimer</a></li>
+        <li><a href="/sitemap.xml">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-note wrap">&copy; 2026 3DTools. 3DTools processes models locally in your browser and never receives your files.</div>
+</footer>
+</body>
+</html>

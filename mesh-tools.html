@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Mesh Repair &amp; Editing Tools — Local, Browser-Based | 3DTools</title>
+<meta name="description" content="Repair, weld, decimate, hollow, cut, split, merge and transform 3D meshes in your browser. Honest descriptions of what each mesh operation does and its limits.">
+<link rel="canonical" href="/mesh-tools.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="3DTools">
+<meta property="og:title" content="Free Mesh Repair &amp; Editing Tools — Local, Browser-Based | 3DTools">
+<meta property="og:description" content="Repair, weld, decimate, hollow, cut, split, merge and transform 3D meshes in your browser. Honest descriptions of what each mesh operation does and its limits.">
+<meta property="og:url" content="https://3dtools.example/mesh-tools.html">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f7cff' d='M12 2 3 7v10l9 5 9-5V7z'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Free Mesh Repair & Editing Tools — Local, Browser-Based | 3DTools","url":"https://3dtools.example/mesh-tools.html","applicationCategory":"DesignApplication","operatingSystem":"Any (modern browser)","browserRequirements":"Requires WebGL","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Repair, weld, decimate, hollow, cut, split, merge and transform 3D meshes in your browser. Honest descriptions of what each mesh operation does and its limits."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is decimation lossy?","acceptedAnswer":{"@type":"Answer","text":"Yes — reducing triangles always changes geometry. Quadric decimation minimizes surface error, and the progress/status shows the exact result. Keep a copy of the original."}},{"@type":"Question","name":"Why did hollow create weird geometry?","acceptedAnswer":{"@type":"Answer","text":"Naive inward offsetting self-intersects where the model is thinner than about twice the wall thickness or in sharp concavities. It works best on chunky, convex shapes; run Repair afterwards and inspect in X-Ray mode."}},{"@type":"Question","name":"How do I delete part of a model?","acceptedAnswer":{"@type":"Answer","text":"Select the Edit tab, choose Faces or Vertices selection mode, Ctrl+Click in the viewport to select, then Delete Selected."}},{"@type":"Question","name":"Can I undo an operation?","acceptedAnswer":{"@type":"Answer","text":"There is no undo stack — keep the original file and re-load it if an operation goes wrong."}}]}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="/"><span class="cube"></span>3DTools</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/tools.html">All Tools</a>
+      <a href="/formats.html">Formats</a>
+      <a href="/viewer/stl-viewer.html">Viewers</a>
+      <a href="/mesh-tools.html" aria-current="page">Mesh Tools</a>
+      <a href="/3d-printing-tools.html">3D Printing</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero"><div class="wrap">
+<h1>Mesh repair & editing tools</h1>
+<p>A complete set of mesh operations for fixing broken downloads, preparing prints and optimizing assets — all running locally in a Web Worker. Each tool below describes exactly what it does, and where an operation is approximate, it says so.</p>
+<div class="wrap" style="padding-top:1.2rem"><a class="btn primary" href="/app.html?tool=repair">Open Mesh Tools</a> <span style="color:var(--text-dim);font-size:.9rem;margin-left:.6rem">Runs locally in your browser — your file never leaves your device.</span></div>
+</div></div>
+<section class="content-block"><div class="wrap"><h2 id="transform">Transform tools</h2>
+<ul>
+<li><strong>Scale</strong> — uniform or per-axis, applied to vertices (and normals stay correct for uniform scale).</li>
+<li><strong>Rotate</strong> — 90° shortcuts around X/Y/Z or arbitrary angles around any axis.</li>
+<li><strong>Mirror</strong> — reflect across a plane perpendicular to X, Y or Z; triangle winding is flipped so the mesh stays valid.</li>
+<li><strong>Center / Align</strong> — center the bounding box on the origin, drop the model so its lowest point sits at z=0 (ground), or both.</li>
+</ul></div></section>
+<section class="content-block"><div class="wrap"><h2 id="repair">Repair tools</h2>
+<ul>
+<li><strong>Repair Mesh</strong> — one pipeline: weld duplicate vertices (spatial-hash with adjustable tolerance), remove degenerate and duplicate faces, make triangle winding globally consistent per component, flip inside-out closed meshes, recompute normals.</li>
+<li><strong>Remove Duplicate Vertices</strong> — tolerance-based weld; STL-style triangle soups become real indexed meshes.</li>
+<li><strong>Remove Duplicate Faces</strong> — drops triangles with identical vertex sets (either winding).</li>
+<li><strong>Recalculate Normals</strong> — smooth vertex normals from face geometry; <strong>Flip Normals</strong> reverses winding and normals together.</li>
+</ul>
+<div class="callout">Limitations: repair fixes topology (duplicates, winding, orientation) and small gaps via vertex welding. It does not do hole-filling of large missing patches or remeshing.</div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="edit">Editing tools</h2>
+<ul>
+<li><strong>Simplify / Decimate</strong> — quadric error-metric edge collapse (Garland–Heckbert) with border preservation; you choose the percentage of triangles to keep. UVs are dropped.</li>
+<li><strong>Merge Objects</strong> — combine all loaded models into one mesh (also across formats).</li>
+<li><strong>Separate Objects</strong> — split a mesh into connected components (by shared vertices).</li>
+<li><strong>Delete Faces / Delete Vertices</strong> — Ctrl+Click faces or vertices to select, then delete; the mesh is re-indexed automatically.</li>
+<li><strong>Hollow Model</strong> — builds an inward-offset inner shell (offset along vertex normals) merged with the outer surface. Approximation: concave regions thinner than twice the wall can self-intersect; run repair afterwards.</li>
+<li><strong>Add Base</strong> — appends a rectangular base plate under the model footprint with configurable thickness and margin.</li>
+<li><strong>Cut Model</strong> — keep one side of an axis-aligned plane, with optional planar cap (the cross-section polygon is triangulated with ear clipping, so the result stays watertight).</li>
+<li><strong>Split Model</strong> — cut into two independent models (above/below the plane), each capped and downloadable separately.</li>
+</ul></div></section>
+<section class="content-block"><div class="wrap"><h2 id="why">Why repair matters</h2><p>Slicers and simulation tools need watertight, consistently wound meshes. Files from scans, downloads or careless exporters commonly contain duplicate vertices (every triangle isolated — the STL norm), zero-area triangles, flipped patches and double faces. The manifold check in the Analyze tab reports boundary and non-manifold edges; the repair pipeline fixes the mechanical problems. It will not invent missing geometry — large holes need a modeling tool.</p></div></section>
+<div class="wrap"><div class="ad-slot" aria-label="Advertisement"></div></div>
+<section class="content-block"><div class="wrap"><h2 id="faq">Frequently Asked Questions</h2><div class="faq"><details><summary>Is decimation lossy?</summary><p>Yes — reducing triangles always changes geometry. Quadric decimation minimizes surface error, and the progress/status shows the exact result. Keep a copy of the original.</p></details>
+<details><summary>Why did hollow create weird geometry?</summary><p>Naive inward offsetting self-intersects where the model is thinner than about twice the wall thickness or in sharp concavities. It works best on chunky, convex shapes; run Repair afterwards and inspect in X-Ray mode.</p></details>
+<details><summary>How do I delete part of a model?</summary><p>Select the Edit tab, choose Faces or Vertices selection mode, Ctrl+Click in the viewport to select, then Delete Selected.</p></details>
+<details><summary>Can I undo an operation?</summary><p>There is no undo stack — keep the original file and re-load it if an operation goes wrong.</p></details></div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="related">Related Tools</h2><div class="card-grid"><a class="card" href="/3d-printing-tools.html"><span class="tag">Tool</span><h3>3D Printing Tools</h3><p>Check the result for printability.</p></a><a class="card" href="/convert/stl-to-obj.html"><span class="tag">Converter</span><h3>STL to OBJ</h3><p>Welds STL soups while converting.</p></a><a class="card" href="/viewer/inspection-views.html"><span class="tag">Viewer</span><h3>Inspection Views</h3><p>X-ray and wireframe for checking repairs.</p></a><a class="card" href="/app.html"><span class="tag">Tool</span><h3>Open Studio</h3><p>All tools in one place.</p></a></div></div></section>
+<footer class="site-footer">
+  <div class="inner">
+    <div>
+      <h4>3DTools</h4>
+      <p style="color:var(--text-dim);font-size:.85rem;margin:0">Free browser-based 3D model tools. All processing happens locally on your device — no uploads, no accounts, no tracking of your files.</p>
+    </div>
+    <div>
+      <h4>Viewers</h4>
+      <ul>
+        <li><a href="/viewer/stl-viewer.html">STL Viewer</a></li>
+        <li><a href="/viewer/obj-viewer.html">OBJ Viewer</a></li>
+        <li><a href="/viewer/glb-gltf-viewer.html">GLB/GLTF Viewer</a></li>
+        <li><a href="/viewer/ply-viewer.html">PLY Viewer</a></li>
+        <li><a href="/viewer/3mf-viewer.html">3MF Viewer</a></li>
+        <li><a href="/viewer/multi-model-viewer.html">Multi-Model Viewer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Converters</h4>
+      <ul>
+        <li><a href="/convert/stl-to-obj.html">STL to OBJ</a></li>
+        <li><a href="/convert/obj-to-stl.html">OBJ to STL</a></li>
+        <li><a href="/convert/stl-to-3mf.html">STL to 3MF</a></li>
+        <li><a href="/convert/obj-to-glb.html">OBJ to GLB</a></li>
+        <li><a href="/convert/glb-to-obj.html">GLB to OBJ</a></li>
+        <li><a href="/convert/gltf-to-glb.html">GLTF to GLB</a></li>
+        <li><a href="/convert/ply-to-obj.html">PLY to OBJ</a></li>
+        <li><a href="/convert/3mf-to-stl.html">3MF to STL</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Toolbox</h4>
+      <ul>
+        <li><a href="/mesh-tools.html">Mesh Repair & Editing</a></li>
+        <li><a href="/3d-printing-tools.html">3D Printing Tools</a></li>
+        <li><a href="/app.html">Open Studio</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <ul>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+        <li><a href="/terms.html">Terms of Use</a></li>
+        <li><a href="/disclaimer.html">Disclaimer</a></li>
+        <li><a href="/sitemap.xml">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-note wrap">&copy; 2026 3DTools. 3DTools processes models locally in your browser and never receives your files.</div>
+</footer>
+</body>
+</html>

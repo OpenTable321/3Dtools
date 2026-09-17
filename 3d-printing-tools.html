@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3D Printing Analysis Tools — Printability, Manifold, Overhangs | 3DTools</title>
+<meta name="description" content="Free local 3D-printing checks: watertight/manifold verification, overhang detection, wall thickness estimation, volume, printability report, orientation and cross sections.">
+<link rel="canonical" href="/3d-printing-tools.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="3DTools">
+<meta property="og:title" content="3D Printing Analysis Tools — Printability, Manifold, Overhangs | 3DTools">
+<meta property="og:description" content="Free local 3D-printing checks: watertight/manifold verification, overhang detection, wall thickness estimation, volume, printability report, orientation and cross sections.">
+<meta property="og:url" content="https://3dtools.example/3d-printing-tools.html">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f7cff' d='M12 2 3 7v10l9 5 9-5V7z'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"3D Printing Analysis Tools — Printability, Manifold, Overhangs | 3DTools","url":"https://3dtools.example/3d-printing-tools.html","applicationCategory":"DesignApplication","operatingSystem":"Any (modern browser)","browserRequirements":"Requires WebGL","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free local 3D-printing checks: watertight/manifold verification, overhang detection, wall thickness estimation, volume, printability report, orientation and cross sections."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What does “not watertight” mean?","acceptedAnswer":{"@type":"Answer","text":"The mesh surface has holes (boundary edges) or topology errors (non-manifold edges), so the slicer cannot reliably tell inside from outside — prints may fail or come out solid/empty incorrectly."}},{"@type":"Question","name":"Is the overhang threshold 45° always right?","acceptedAnswer":{"@type":"Answer","text":"45° is a common rule of thumb for FDM without supports. Adjust the angle in the tool; materials and printers vary."}},{"@type":"Question","name":"How accurate is the volume calculation?","acceptedAnswer":{"@type":"Answer","text":"Exact for a watertight mesh (divergence-theorem sum over triangles). If the mesh has holes the number is not meaningful."}},{"@type":"Question","name":"Does it check my specific printer volume?","acceptedAnswer":{"@type":"Answer","text":"The default check uses 220×220×250 mm. The check reports dimensions so you can compare against your own build volume."}}]}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="/"><span class="cube"></span>3DTools</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/tools.html">All Tools</a>
+      <a href="/formats.html">Formats</a>
+      <a href="/viewer/stl-viewer.html">Viewers</a>
+      <a href="/mesh-tools.html">Mesh Tools</a>
+      <a href="/3d-printing-tools.html" aria-current="page">3D Printing</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero"><div class="wrap">
+<h1>3D printing tools</h1>
+<p>Check whether a model will actually print — before you waste filament. These analysis tools run locally on the mesh: watertightness, overhangs, wall thickness, size vs. printer volume, and a combined printability report.</p>
+<div class="wrap" style="padding-top:1.2rem"><a class="btn primary" href="/app.html?tool=printability">Run a Printability Check</a> <span style="color:var(--text-dim);font-size:.9rem;margin-left:.6rem">Runs locally in your browser — your file never leaves your device.</span></div>
+</div></div>
+<section class="content-block"><div class="wrap"><h2 id="checks">The checks</h2>
+<ul>
+<li><strong>Printability Check</strong> — one report combining all checks below with issues, warnings and notes.</li>
+<li><strong>Manifold Check</strong> — exact topology test: counts boundary edges (holes), non-manifold edges and non-manifold vertices. A watertight mesh has zero of each.</li>
+<li><strong>Overhang Detection</strong> — flags faces whose normal points within a threshold angle of straight down (default 45°), reports their area as a percentage, and highlights them in red in the viewport.</li>
+<li><strong>Wall Thickness Check</strong> — estimates local thickness by casting inward rays from surface samples (approximation — see below).</li>
+<li><strong>Mesh Statistics</strong> — vertices, triangles, bounding box, indexed/soup status.</li>
+<li><strong>Bounding Box / Volume / Surface Area</strong> — exact geometric quantities (volume via the divergence theorem, assumes watertight).</li>
+</ul></div></section>
+<section class="content-block"><div class="wrap"><h2 id="prep">Preparation tools</h2>
+<ul>
+<li><strong>Model Orientation</strong> — drop to ground, or auto-orient by rotating the dominant face normal downward (approximation), then align to the plate.</li>
+<li><strong>Cross Section</strong> — slide a cutting plane along any axis and inspect the contour — the classic way to spot hidden holes and inverted geometry.</li>
+<li><strong>Measure Distance / Angle</strong> — click points on the surface to measure between them.</li>
+<li><strong>Model Screenshot</strong> — capture the viewport as PNG for documentation.</li>
+<li><strong>Center + Ground</strong> and the rest of the <a href="/mesh-tools.html">mesh repair tools</a> prepare geometry for slicing.</li>
+</ul></div></section>
+<section class="content-block"><div class="wrap"><h2 id="accuracy">Accuracy and limitations</h2><p>Manifold checks, overhang angles, volume and area are exact computations on the triangle data. <strong>Wall thickness is an approximation</strong>: it samples surface points and casts rays inward along the normal, reporting the distance to the first surface hit. On concave shapes it can locally over- or under-estimate, and it knows nothing about your printer's nozzle: pair its output with judgment. The default printer volume used for size checks (220×220×250 mm) is a common consumer printer; your machine may differ.</p></div></section>
+<section class="content-block"><div class="wrap"><h2 id="workflow">A sane pre-print workflow</h2>
+<ol>
+<li>Load the model and drop it to the ground.</li>
+<li>Run the Printability Check — fix any issues with <a href="/mesh-tools.html">repair tools</a>.</li>
+<li>Check overhangs and decide on supports or reorientation.</li>
+<li>Export STL or 3MF and slice as usual.</li>
+</ol></div></section>
+<div class="wrap"><div class="ad-slot" aria-label="Advertisement"></div></div>
+<section class="content-block"><div class="wrap"><h2 id="faq">Frequently Asked Questions</h2><div class="faq"><details><summary>What does “not watertight” mean?</summary><p>The mesh surface has holes (boundary edges) or topology errors (non-manifold edges), so the slicer cannot reliably tell inside from outside — prints may fail or come out solid/empty incorrectly.</p></details>
+<details><summary>Is the overhang threshold 45° always right?</summary><p>45° is a common rule of thumb for FDM without supports. Adjust the angle in the tool; materials and printers vary.</p></details>
+<details><summary>How accurate is the volume calculation?</summary><p>Exact for a watertight mesh (divergence-theorem sum over triangles). If the mesh has holes the number is not meaningful.</p></details>
+<details><summary>Does it check my specific printer volume?</summary><p>The default check uses 220×220×250 mm. The check reports dimensions so you can compare against your own build volume.</p></details></div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="related">Related Tools</h2><div class="card-grid"><a class="card" href="/mesh-tools.html"><span class="tag">Tool</span><h3>Mesh Tools</h3><p>Fix what the checks find.</p></a><a class="card" href="/convert/stl-to-3mf.html"><span class="tag">Converter</span><h3>STL to 3MF</h3><p>Export for modern slicers.</p></a><a class="card" href="/viewer/inspection-views.html"><span class="tag">Viewer</span><h3>Inspection Views</h3><p>X-ray view for internal geometry.</p></a><a class="card" href="/app.html"><span class="tag">Tool</span><h3>Open Studio</h3><p>Run the checks on your model.</p></a></div></div></section>
+<footer class="site-footer">
+  <div class="inner">
+    <div>
+      <h4>3DTools</h4>
+      <p style="color:var(--text-dim);font-size:.85rem;margin:0">Free browser-based 3D model tools. All processing happens locally on your device — no uploads, no accounts, no tracking of your files.</p>
+    </div>
+    <div>
+      <h4>Viewers</h4>
+      <ul>
+        <li><a href="/viewer/stl-viewer.html">STL Viewer</a></li>
+        <li><a href="/viewer/obj-viewer.html">OBJ Viewer</a></li>
+        <li><a href="/viewer/glb-gltf-viewer.html">GLB/GLTF Viewer</a></li>
+        <li><a href="/viewer/ply-viewer.html">PLY Viewer</a></li>
+        <li><a href="/viewer/3mf-viewer.html">3MF Viewer</a></li>
+        <li><a href="/viewer/multi-model-viewer.html">Multi-Model Viewer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Converters</h4>
+      <ul>
+        <li><a href="/convert/stl-to-obj.html">STL to OBJ</a></li>
+        <li><a href="/convert/obj-to-stl.html">OBJ to STL</a></li>
+        <li><a href="/convert/stl-to-3mf.html">STL to 3MF</a></li>
+        <li><a href="/convert/obj-to-glb.html">OBJ to GLB</a></li>
+        <li><a href="/convert/glb-to-obj.html">GLB to OBJ</a></li>
+        <li><a href="/convert/gltf-to-glb.html">GLTF to GLB</a></li>
+        <li><a href="/convert/ply-to-obj.html">PLY to OBJ</a></li>
+        <li><a href="/convert/3mf-to-stl.html">3MF to STL</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Toolbox</h4>
+      <ul>
+        <li><a href="/mesh-tools.html">Mesh Repair & Editing</a></li>
+        <li><a href="/3d-printing-tools.html">3D Printing Tools</a></li>
+        <li><a href="/app.html">Open Studio</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <ul>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+        <li><a href="/terms.html">Terms of Use</a></li>
+        <li><a href="/disclaimer.html">Disclaimer</a></li>
+        <li><a href="/sitemap.xml">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-note wrap">&copy; 2026 3DTools. 3DTools processes models locally in your browser and never receives your files.</div>
+</footer>
+</body>
+</html>

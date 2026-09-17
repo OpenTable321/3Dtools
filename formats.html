@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Supported 3D File Formats — STL, OBJ, GLB/GLTF, PLY, 3MF | 3DTools</title>
+<meta name="description" content="What 3DTools reads and writes: STL, OBJ, PLY, glTF 2.0 (GLB/GLTF) and 3MF — capabilities, variants and honest limitations of each format.">
+<link rel="canonical" href="/formats.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="3DTools">
+<meta property="og:title" content="Supported 3D File Formats — STL, OBJ, GLB/GLTF, PLY, 3MF | 3DTools">
+<meta property="og:description" content="What 3DTools reads and writes: STL, OBJ, PLY, glTF 2.0 (GLB/GLTF) and 3MF — capabilities, variants and honest limitations of each format.">
+<meta property="og:url" content="https://3dtools.example/formats.html">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f7cff' d='M12 2 3 7v10l9 5 9-5V7z'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Supported 3D File Formats — STL, OBJ, GLB/GLTF, PLY, 3MF | 3DTools","url":"https://3dtools.example/formats.html","applicationCategory":"DesignApplication","operatingSystem":"Any (modern browser)","browserRequirements":"Requires WebGL","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"What 3DTools reads and writes: STL, OBJ, PLY, glTF 2.0 (GLB/GLTF) and 3MF — capabilities, variants and honest limitations of each format."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can you add format X?","acceptedAnswer":{"@type":"Answer","text":"Formats are added only when they can be implemented fully client-side and fit the mesh pipeline. The <a href=\"/contact.html\">contact page</a> lists how to suggest one."}},{"@type":"Question","name":"Why no STEP support?","acceptedAnswer":{"@type":"Answer","text":"STEP is a CAD (BREP) format requiring a full geometry kernel; converting it honestly means embedding megabytes of WASM CAD code. Rather than fake it, 3DTools stays a mesh toolbox."}},{"@type":"Question","name":"Which format should I use for 3D printing?","acceptedAnswer":{"@type":"Answer","text":"3MF if your slicer supports it (units, multiple objects), otherwise STL. OBJ works too but adds nothing for printing."}}]}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="/"><span class="cube"></span>3DTools</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/tools.html">All Tools</a>
+      <a href="/formats.html" aria-current="page">Formats</a>
+      <a href="/viewer/stl-viewer.html">Viewers</a>
+      <a href="/mesh-tools.html">Mesh Tools</a>
+      <a href="/3d-printing-tools.html">3D Printing</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero"><div class="wrap">
+<h1>Supported formats</h1>
+<p>3DTools deliberately supports a small set of formats — deeply and honestly — instead of claiming to read everything. Below is exactly what is parsed, what is written, and what each format can and cannot contain.</p>
+<div class="wrap" style="padding-top:1.2rem"><a class="btn primary" href="/app.html">Try it with your file</a> <span style="color:var(--text-dim);font-size:.9rem;margin-left:.6rem">Runs locally in your browser — your file never leaves your device.</span></div>
+</div></div>
+<section class="content-block"><div class="wrap"><h2 id="table">Overview</h2>
+<table class="data">
+<tr><th>Format</th><th>Read</th><th>Write</th><th>Variants</th><th>Objects</th><th>Normals/UVs</th></tr>
+<tr><td><a href="/viewer/stl-viewer.html">STL</a></td><td>Yes</td><td>Binary + ASCII</td><td>Binary, ASCII</td><td>Single solid</td><td>Normals only</td></tr>
+<tr><td><a href="/viewer/obj-viewer.html">OBJ</a></td><td>Yes</td><td>Yes</td><td>Text</td><td>o/g groups</td><td>Both</td></tr>
+<tr><td><a href="/viewer/ply-viewer.html">PLY</a></td><td>Yes</td><td>Binary + ASCII</td><td>ASCII, binary LE/BE</td><td>Single mesh</td><td>Both + colors</td></tr>
+<tr><td><a href="/viewer/glb-gltf-viewer.html">GLB/GLTF</a></td><td>Yes</td><td>Both</td><td>glTF 2.0</td><td>Multiple</td><td>Both</td></tr>
+<tr><td><a href="/viewer/3mf-viewer.html">3MF</a></td><td>Yes</td><td>Yes</td><td>Core spec</td><td>Multiple + transforms</td><td>Triangles only</td></tr>
+</table></div></section>
+<section class="content-block"><div class="wrap"><h2 id="stl">STL</h2>
+<p>The 3D-printing classic: a list of triangles with per-face normals, nothing else. No units, no colors, no object names. Binary STL packs each triangle into exactly 50 bytes; ASCII STL writes the same data as text and is roughly five times larger. 3DTools auto-detects the variant, tolerates truncated files by clipping to the triangles actually present, and recomputes ASCII normals (which are notoriously unreliable) from the geometry.</p></div></section>
+<section class="content-block"><div class="wrap"><h2 id="obj">OBJ</h2>
+<p>Wavefront OBJ is a simple, human-readable text format for polygon meshes. Faces may reference vertices, texture coordinates and normals independently (including negative indices), and files can contain multiple objects and material groups. 3DTools triangulates n-gons, creates a separate model per object/material group and preserves normals and UVs. Material libraries (.mtl) are not required for viewing and are not written on export.</p></div></section>
+<section class="content-block"><div class="wrap"><h2 id="ply">PLY</h2><p>Stanford PLY describes vertices and faces with a flexible, header-declared property schema — which is why it is the standard for 3D-scanner output. 3DTools reads all three encodings (ASCII, binary little-endian, binary big-endian) with any standard scalar type, handles list properties for faces, preserves vertex colors and renders face-less files (point clouds) as points.</p></div></section>
+<section class="content-block"><div class="wrap"><h2 id="gltf">GLB / GLTF</h2><p>glTF 2.0 is the “JPEG of 3D”: a runtime format for the web. A .glb file packs JSON and binary into one chunked container; a .gltf file is JSON plus external .bin buffers. 3DTools parses both, applies node transforms (translation/rotation/scale/matrix), reads POSITION, NORMAL, TEXCOORD_0, COLOR_0 and index accessors with all standard component types, and rejects Draco/meshopt-compressed assets with a clear error. Exports are spec-compliant glTF 2.0 with correct buffer alignment.</p></div></section>
+<section class="content-block"><div class="wrap"><h2 id="3mf">3MF</h2><p>3MF is a ZIP (OPC) package with an XML mesh model, designed by the 3MF Consortium to fix STL: explicit units, multiple named objects, build transforms and extension points. 3DTools reads and writes the core specification (objects, components, build items, transforms), unpacking containers locally with the browser's decompression API.</p></div></section>
+<section class="content-block"><div class="wrap"><h2 id="not">What is deliberately not supported</h2>
+<ul>
+<li><strong>F3D, STEP, IGES, 3DS, FBX, X3D, DAE, USDZ:</strong> these are CAD or scene-graph formats outside the scope of a mesh toolbox. 3DTools does not claim CAD support.</li>
+<li><strong>Draco / meshopt compressed glTF:</strong> rejected with an explanatory error rather than a blank screen.</li>
+<li><strong>Textures and PBR materials:</strong> geometry-focused pipeline; materials are kept as names only where the format supports it.</li>
+</ul></div></section>
+<div class="wrap"><div class="ad-slot" aria-label="Advertisement"></div></div>
+<section class="content-block"><div class="wrap"><h2 id="faq">Frequently Asked Questions</h2><div class="faq"><details><summary>Can you add format X?</summary><p>Formats are added only when they can be implemented fully client-side and fit the mesh pipeline. The <a href="/contact.html">contact page</a> lists how to suggest one.</p></details>
+<details><summary>Why no STEP support?</summary><p>STEP is a CAD (BREP) format requiring a full geometry kernel; converting it honestly means embedding megabytes of WASM CAD code. Rather than fake it, 3DTools stays a mesh toolbox.</p></details>
+<details><summary>Which format should I use for 3D printing?</summary><p>3MF if your slicer supports it (units, multiple objects), otherwise STL. OBJ works too but adds nothing for printing.</p></details></div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="related">Related Tools</h2><div class="card-grid"><a class="card" href="/tools.html"><span class="tag">Tool</span><h3>All Tools</h3><p>Browse every viewer and converter.</p></a><a class="card" href="/viewer/stl-viewer.html"><span class="tag">Viewer</span><h3>STL Viewer</h3><p>Start with the most common format.</p></a><a class="card" href="/convert/gltf-to-glb.html"><span class="tag">Converter</span><h3>GLTF to GLB</h3><p>Popular glTF packing tool.</p></a><a class="card" href="/3d-printing-tools.html"><span class="tag">Tool</span><h3>3D Printing Tools</h3><p>Analysis for printed parts.</p></a></div></div></section>
+<footer class="site-footer">
+  <div class="inner">
+    <div>
+      <h4>3DTools</h4>
+      <p style="color:var(--text-dim);font-size:.85rem;margin:0">Free browser-based 3D model tools. All processing happens locally on your device — no uploads, no accounts, no tracking of your files.</p>
+    </div>
+    <div>
+      <h4>Viewers</h4>
+      <ul>
+        <li><a href="/viewer/stl-viewer.html">STL Viewer</a></li>
+        <li><a href="/viewer/obj-viewer.html">OBJ Viewer</a></li>
+        <li><a href="/viewer/glb-gltf-viewer.html">GLB/GLTF Viewer</a></li>
+        <li><a href="/viewer/ply-viewer.html">PLY Viewer</a></li>
+        <li><a href="/viewer/3mf-viewer.html">3MF Viewer</a></li>
+        <li><a href="/viewer/multi-model-viewer.html">Multi-Model Viewer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Converters</h4>
+      <ul>
+        <li><a href="/convert/stl-to-obj.html">STL to OBJ</a></li>
+        <li><a href="/convert/obj-to-stl.html">OBJ to STL</a></li>
+        <li><a href="/convert/stl-to-3mf.html">STL to 3MF</a></li>
+        <li><a href="/convert/obj-to-glb.html">OBJ to GLB</a></li>
+        <li><a href="/convert/glb-to-obj.html">GLB to OBJ</a></li>
+        <li><a href="/convert/gltf-to-glb.html">GLTF to GLB</a></li>
+        <li><a href="/convert/ply-to-obj.html">PLY to OBJ</a></li>
+        <li><a href="/convert/3mf-to-stl.html">3MF to STL</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Toolbox</h4>
+      <ul>
+        <li><a href="/mesh-tools.html">Mesh Repair & Editing</a></li>
+        <li><a href="/3d-printing-tools.html">3D Printing Tools</a></li>
+        <li><a href="/app.html">Open Studio</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <ul>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+        <li><a href="/terms.html">Terms of Use</a></li>
+        <li><a href="/disclaimer.html">Disclaimer</a></li>
+        <li><a href="/sitemap.xml">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-note wrap">&copy; 2026 3DTools. 3DTools processes models locally in your browser and never receives your files.</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3D Model Viewer, Converter & Mesh Tools — 3DTools Studio</title>
+<meta name="description" content="Free browser-based 3D studio: view STL, OBJ, GLB, PLY and 3MF models, convert between formats, repair, decimate and analyze meshes for 3D printing. 100% local processing — your files never leave your device.">
+<link rel="canonical" href="/app.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="3DTools Studio — 3D Model Viewer, Converter & Mesh Tools">
+<meta property="og:description" content="View, convert, repair and analyze STL/OBJ/GLB/PLY/3MF models entirely in your browser. No uploads, no accounts.">
+<meta property="og:url" content="/app.html">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f7cff' d='M12 2 3 7v10l9 5 9-5V7z'/%3E%3C/svg%3E">
+<script type="importmap">
+{
+  "imports": {
+    "three": "/assets/vendor/three.module.js",
+    "three/addons/": "/assets/vendor/"
+  }
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="/"><span class="cube"></span>3DTools</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/tools.html">All Tools</a>
+      <a href="/formats.html">Formats</a>
+      <a href="/viewer/stl-viewer.html">Viewers</a>
+      <a href="/mesh-tools.html">Mesh Tools</a>
+      <a href="/3d-printing-tools.html">3D Printing</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="app-shell" id="appShell">
+  <div class="app-toolbar">
+    <button class="btn primary" id="btnOpen">Open File(s)</button>
+    <input type="file" id="fileInput" multiple accept=".stl,.obj,.ply,.glb,.gltf,.3mf,.bin" hidden>
+    <div class="model-tabs" id="modelTabs" aria-label="Loaded models"></div>
+    <div class="spacer"></div>
+    <button class="btn" id="btnFrame" title="Zoom to fit (F)">Fit</button>
+    <button class="btn danger" id="btnClear">Clear All</button>
+  </div>
+
+  <aside class="app-panel" aria-label="Tool panel">
+    <div class="panel-tabs" role="tablist">
+      <div class="panel-tab" data-tab="view" role="tab">View</div>
+      <div class="panel-tab" data-tab="transform" role="tab">Transform</div>
+      <div class="panel-tab" data-tab="repair" role="tab">Repair</div>
+      <div class="panel-tab" data-tab="edit" role="tab">Edit</div>
+      <div class="panel-tab" data-tab="analyze" role="tab">Analyze</div>
+      <div class="panel-tab" data-tab="export" role="tab">Convert</div>
+    </div>
+    <div class="panel-body">
+
+      <div class="tab-pane" data-pane="view">
+        <div class="tool-group">
+          <h4>Display</h4>
+          <div class="tool-row">
+            <select id="displayMode">
+              <option value="solid">Solid</option>
+              <option value="wireframe">Wireframe only</option>
+              <option value="xray">X-Ray (transparent)</option>
+              <option value="normals">Normals (color-coded)</option>
+              <option value="vertices">Vertices</option>
+            </select>
+            <label><input type="checkbox" id="chkWireOverlay"> Wireframe overlay</label>
+          </div>
+          <div class="tool-row">
+            <label><input type="checkbox" id="chkVertices"> Show vertices</label>
+            <label><input type="checkbox" id="chkGrid" checked> Grid</label>
+          </div>
+        </div>
+        <div class="tool-group">
+          <h4>Camera</h4>
+          <div class="tool-row">
+            <button class="btn" data-view="front">Front</button>
+            <button class="btn" data-view="back">Back</button>
+            <button class="btn" data-view="top">Top</button>
+            <button class="btn" data-view="bottom">Bottom</button>
+            <button class="btn" data-view="right">Right</button>
+            <button class="btn" data-view="left">Left</button>
+            <button class="btn" data-view="iso">Iso</button>
+          </div>
+          <div class="tool-row">
+            <label><input type="checkbox" id="chkBBox"> Bounding box</label>
+          </div>
+        </div>
+        <div class="tool-group">
+          <h4>Screenshot</h4>
+          <p style="font-size:0.82rem;color:var(--text-dim);margin:0 0 0.5rem">Captures the current viewport as a PNG image, locally.</p>
+          <button class="btn" id="btnScreenshot">Save Viewport PNG</button>
+        </div>
+      </div>
+
+      <div class="tab-pane" data-pane="transform" hidden>
+        <div class="tool-group">
+          <h4>Scale</h4>
+          <div class="tool-row">
+            <label>Factor</label><input type="number" id="scaleFactor" value="1.0" step="0.1" min="0.0001">
+            <button class="btn" id="btnScaleUniform">Apply Uniform</button>
+          </div>
+          <div class="tool-row">
+            <label>X</label><input type="number" id="scaleX" value="1" step="0.1">
+            <label>Y</label><input type="number" id="scaleY" value="1" step="0.1">
+            <label>Z</label><input type="number" id="scaleZ" value="1" step="0.1">
+            <button class="btn" id="btnScaleAxis">Apply Per-Axis</button>
+          </div>
+        </div>
+        <div class="tool-group">
+          <h4>Rotate</h4>
+          <div class="tool-row">
+            <button class="btn" data-rot="x">+90° X</button>
+            <button class="btn" data-rot="y">+90° Y</button>
+            <button class="btn" data-rot="z">+90° Z</button>
+          </div>
+          <div class="tool-row">
+            <label>Custom</label>
+            <select id="rotAxis"><option value="x">X</option><option value="y">Y</option><option value="z">Z</option></select>
+            <input type="number" id="rotDeg" value="45" step="5">
+            <label>°</label>
+            <button class="btn" id="btnRotate">Rotate</button>
+          </div>
+        </div>
+        <div class="tool-group">
+          <h4>Mirror</h4>
+          <div class="tool-row">
+            <button class="btn" data-mirror="x">Mirror X</button>
+            <button class="btn" data-mirror="y">Mirror Y</button>
+            <button class="btn" data-mirror="z">Mirror Z</button>
+          </div>
+        </div>
+        <div class="tool-group">
+          <h4>Position</h4>
+          <div class="tool-row">
+            <button class="btn" id="btnCenter">Center on Origin</button>
+            <button class="btn" id="btnCenterGround">Center + Ground</button>
+            <button class="btn" id="btnAlignGround">Drop to Ground</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane" data-pane="repair" hidden>
+        <div class="tool-group">
+          <h4>Repair Mesh</h4>
+          <p style="font-size:0.82rem;color:var(--text-dim);margin:0 0 0.5rem">Welds duplicate vertices, removes degenerate and duplicate faces, fixes triangle winding and inside-out orientation, recomputes normals.</p>
+          <div class="tool-row">
+            <label>Weld tol.</label><input type="number" id="repairTol" value="0.0001" step="0.0001" min="0">
+            <button class="btn primary" id="btnRepair">Repair</button>
+          </div>
+        </div>
+        <div class="tool-group">
+          <h4>Individual Operations</h4>
+          <div class="tool-row">
+            <label>Tolerance</label><input type="number" id="weldTol" value="0.0001" step="0.0001" min="0">
+            <button class="btn" id="btnWeld">Remove Duplicate Vertices</button>
+          </div>
+          <div class="tool-row">
+            <button class="btn" id="btnDupFaces">Remove Duplicate Faces</button>
+          </div>
+          <div class="tool-row">
+            <button class="btn" id="btnNormals">Recalculate Normals (smooth)</button>
+          </div>
+          <div class="tool-row">
+            <button class="btn" id="btnFlipNormals">Flip Normals / Winding</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane" data-pane="edit" hidden>
+        <div class="tool-group">
+          <h4>Simplify / Decimate</h4>
+          <p style="font-size:0.82rem;color:var(--text-dim);margin:0 0 0.5rem">Quadric edge-collapse decimation. Reduces triangle count while preserving shape. UVs are dropped.</p>
+          <div class="tool-row">
+            <input type="range" id="simplifyRange" min="5" max="100" value="50">
+            <span class="val" id="simplifyVal">50%</span>
+          </div>
+          <div class="tool-row">
+            <button class="btn primary" id="btnSimplify">Decimate</button>
+          </div>
+        </div>
+        <div class="tool-group">
+          <h4>Hollow Model</h4>
+          <p style="font-size:0.82rem;color:var(--text-dim);margin:0 0 0.5rem">Creates an inner shell offset inward by the wall thickness and merges it with the outer surface. Approximation: concave areas thinner than 2× thickness can self-intersect.</p>
+          <div class="tool-row">
+            <label>Wall (mm)</label><input type="number" id="hollowThickness" value="2" step="0.5" min="0.01">
+            <button class="btn" id="btnHollow">Hollow</button>
+          </div>
+        </div>
+        <div class="tool-group">
+          <h4>Add Base</h4>
+          <p style="font-size:0.82rem;color:var(--text-dim);margin:0 0 0.5rem">Adds a rectangular base plate under the model footprint.</p>
+          <div class="tool-row">
+            <label>Thickness</label><input type="number" id="baseThickness" value="2" step="0.5" min="0.1">
+            <label>Margin</label><input type="number" id="baseMargin" value="2" step="0.5" min="0">
+            <button class="btn" id="btnBase">Add Base</button>
+          </div>
+        </div>
+        <div class="tool-group">
+          <h4>Cut / Split</h4>
+          <div class="tool-row">
+            <select id="cutAxis"><option value="z">Z</option><option value="x">X</option><option value="y">Y</option></select>
+            <input type="range" id="cutPos" min="0" max="100" value="50">
+            <span class="val" id="cutVal">50%</span>
+          </div>
+          <div class="tool-row">
+            <label><input type="checkbox" id="cutCap" checked> Cap cut surface</label>
+          </div>
+          <div class="tool-row">
+            <button class="btn" id="btnCutAbove">Keep Above Plane</button>
+            <button class="btn" id="btnCutBelow">Keep Below Plane</button>
+            <button class="btn" id="btnSplit">Split Into Two Models</button>
+          </div>
+        </div>
+        <div class="tool-group">
+          <h4>Objects</h4>
+          <div class="tool-row">
+            <button class="btn" id="btnSeparate">Separate Objects (by connectivity)</button>
+          </div>
+          <div class="tool-row">
+            <button class="btn" id="btnMerge">Merge All Loaded Models</button>
+          </div>
+        </div>
+        <div class="tool-group">
+          <h4>Delete Selection</h4>
+          <p style="font-size:0.82rem;color:var(--text-dim);margin:0 0 0.5rem">Ctrl+Click faces or vertices in the viewport to select them (highlighted red), then delete.</p>
+          <div class="tool-row">
+            <label><input type="radio" name="selMode" value="face" checked> Faces</label>
+            <label><input type="radio" name="selMode" value="vertex"> Vertices</label>
+            <button class="btn" id="btnSelClear">Clear Selection</button>
+          </div>
+          <div class="tool-row">
+            <button class="btn danger" id="btnDeleteFaces">Delete Selected Faces</button>
+            <button class="btn danger" id="btnDeleteVerts">Delete Selected Vertices</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane" data-pane="analyze" hidden>
+        <div class="tool-group">
+          <h4>Mesh Analysis</h4>
+          <div class="tool-row">
+            <button class="btn" id="btnStats">Mesh Statistics</button>
+            <button class="btn" id="btnVolume">Volume & Surface Area</button>
+            <button class="btn" id="btnManifold">Manifold Check</button>
+          </div>
+        </div>
+        <div class="tool-group">
+          <h4>3D Printing</h4>
+          <div class="tool-row">
+            <button class="btn primary" id="btnPrintability">Printability Check</button>
+          </div>
+          <div class="tool-row">
+            <label>Overhang angle</label><input type="number" id="overhangDeg" value="45" min="0" max="89">
+            <button class="btn" id="btnOverhang">Detect Overhangs</button>
+          </div>
+          <div class="tool-row">
+            <button class="btn" id="btnWall">Wall Thickness Check</button>
+          </div>
+          <div class="tool-row">
+            <label><input type="checkbox" id="chkAutoOrient"> Auto-orient (lay flattest side down)</label>
+            <button class="btn" id="btnOrient">Apply Orientation</button>
+          </div>
+        </div>
+        <div class="tool-group">
+          <h4>Cross Section</h4>
+          <div class="tool-row">
+            <select id="sliceAxis"><option value="z">Z</option><option value="x">X</option><option value="y">Y</option></select>
+            <input type="range" id="slicePos" min="0" max="100" value="50">
+            <span class="val" id="sliceVal">50%</span>
+            <button class="btn" id="btnSlice">Slice</button>
+            <button class="btn" id="btnSliceClear">Clear</button>
+          </div>
+        </div>
+        <div class="tool-group">
+          <h4>Measure</h4>
+          <div class="tool-row">
+            <button class="btn" id="btnMeasureDist">Measure Distance</button>
+            <button class="btn" id="btnMeasureAngle">Measure Angle</button>
+            <button class="btn" id="btnMeasureClear">Clear</button>
+          </div>
+          <p style="font-size:0.82rem;color:var(--text-dim);margin:0">Click points on the model surface. Distance needs 2 points, angle needs 3.</p>
+        </div>
+        <div class="tool-group results" id="analyzeResults"></div>
+      </div>
+
+      <div class="tab-pane" data-pane="export" hidden>
+        <div class="tool-group">
+          <h4>Convert & Download</h4>
+          <p style="font-size:0.82rem;color:var(--text-dim);margin:0 0 0.5rem">Converts the <strong>active model</strong> (or all models, for multi-object formats) and downloads the result. Processing happens locally in your browser.</p>
+          <div class="tool-row">
+            <select id="exportFormat">
+              <option value="stl">STL (binary)</option>
+              <option value="stl-ascii">STL (ASCII)</option>
+              <option value="obj">OBJ</option>
+              <option value="ply">PLY (binary)</option>
+              <option value="ply-ascii">PLY (ASCII)</option>
+              <option value="glb">GLB</option>
+              <option value="gltf">GLTF (embedded)</option>
+              <option value="3mf">3MF</option>
+            </select>
+            <button class="btn primary" id="btnDownload">Convert & Download</button>
+          </div>
+          <div class="tool-row">
+            <label><input type="checkbox" id="chkExportAll"> Include all loaded models</label>
+          </div>
+          <div id="exportNotes" style="font-size:0.82rem;color:var(--text-dim)"></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="app-ad">
+      <div class="ad-slot" aria-label="Advertisement"></div>
+    </div>
+  </aside>
+
+  <div class="app-canvas" id="canvasWrap">
+    <div class="empty-state" id="emptyState">
+      <div class="big">◱</div>
+      <div><strong>No model loaded</strong></div>
+      <div>Drop STL / OBJ / PLY / GLB / 3MF files here, or click <em>Open File(s)</em>.<br>
+      <span style="font-size:0.8rem">Everything is processed locally — nothing is uploaded.</span></div>
+      <button class="btn" id="btnSample">Load Sample Model</button>
+    </div>
+    <div class="drop-overlay">Drop files to load</div>
+    <div id="labelLayer" style="position:absolute;inset:0;pointer-events:none;overflow:hidden"></div>
+  </div>
+
+  <div class="app-statusbar">
+    <div class="progress-outer" id="progressBar"><div class="progress-inner" id="progressFill"></div></div>
+    <div class="status-msg" id="statusMsg">Ready.</div>
+    <div id="statusStats"></div>
+  </div>
+</div>
+
+<script type="module" src="/assets/js/app/main.js"></script>
+</body>
+</html>
