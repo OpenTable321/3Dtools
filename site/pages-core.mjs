@@ -268,7 +268,7 @@ export const CORE_PAGES = [
   intro: `<p>Found a bug, a file that should parse but does not, or a format you need? Get in touch.</p>`,
   sections: [
     { id: 'how', h2: 'How to reach us', html: `
-<p>Email: <strong>contact@3dtools.example</strong></p>
+<p>Email: <strong>nnuubbiikk@gmail.com</strong></p>
 <p>To keep this site free of trackers, there is no contact form — just plain email. Please include:</p>
 <ul>
 <li>For bugs: what you did, what you expected, and what happened (the exact status-bar error message helps enormously).</li>

@@ -27,6 +27,7 @@ function header(path) {
     <nav class="main-nav" aria-label="Main navigation">
       ${links.map(([href, label]) => `<a href="${href}"${href === path ? ' aria-current="page"' : ''}>${label}</a>`).join('\n      ')}
     </nav>
+    <button class="lang-toggle" type="button" aria-label="Переключить на русский">RU</button>
   </div>
 </header>`;
 }
@@ -170,6 +171,7 @@ ${ads}
 ${faq}
 ${related}
 ${footer()}
+<script src="/assets/js/i18n.js" defer></script>
 </body>
 </html>
 `;

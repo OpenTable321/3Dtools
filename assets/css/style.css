@@ -68,6 +68,20 @@ a:hover { color: var(--accent-hover); text-decoration: underline; }
 .main-nav { display: flex; gap: 1.1rem; flex-wrap: wrap; margin-left: auto; }
 .main-nav a { color: var(--text-dim); font-size: 0.95rem; }
 .main-nav a:hover { color: var(--text); text-decoration: none; }
+.lang-toggle {
+  margin-left: 0.9rem;
+  align-self: center;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.lang-toggle:hover { color: var(--text); border-color: var(--accent); }
 
 .site-footer {
   border-top: 1px solid var(--border);

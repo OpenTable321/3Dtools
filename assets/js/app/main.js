@@ -16,6 +16,7 @@ import { exportPLY } from '../lib/io/ply.js';
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => [...document.querySelectorAll(sel)];
+const t = (s) => (window.__t ? window.__t(s) : s);
 
 const viewer = new Viewer($('#canvasWrap'));
 viewer.setLabelLayer($('#labelLayer'));
@@ -35,9 +36,9 @@ const state = {
 // ---------- status ----------
 let statusTimer = null;
 function setStatus(msg, sticky = false) {
-  $('#statusMsg').textContent = msg;
+  $('#statusMsg').textContent = t(msg);
   clearTimeout(statusTimer);
-  if (!sticky) statusTimer = setTimeout(() => { $('#statusMsg').textContent = 'Ready.'; }, 6000);
+  if (!sticky) statusTimer = setTimeout(() => { $('#statusMsg').textContent = t('Ready.'); }, 6000);
 }
 function setProgress(p) {
   const bar = $('#progressBar');
@@ -166,7 +167,7 @@ function updateStats() {
 async function runOp(op, payload, label) {
   const m = activeModel();
   if (!m) { setStatus('Load a model first.', true); throw new Error('no model'); }
-  setStatus(label + '…', true);
+  setStatus(t(label) + '…', true);
   setProgress(0);
   try {
     const result = await ops.run(op, payload, progress);
@@ -174,7 +175,7 @@ async function runOp(op, payload, label) {
     return result;
   } catch (err) {
     setProgress(null);
-    setStatus(`${label} failed: ${err.message}`, true);
+    setStatus(`${t(label)}${t(' failed: ')}${err.message}`, true);
     throw err;
   }
 }
@@ -301,12 +302,12 @@ $('#btnAlignGround').onclick = () => applyTransform({ alignGround: true }, 'Alig
 
 function f(sel) { return parseFloat($(sel).value) || 0; }
 
-async function applyTransform(t, label) {
+async function applyTransform(tf, label) {
   if (!activeMesh()) return setStatus('Load a model first.', true);
   try {
-    const result = await runOp('transform', { mesh: meshPayload(activeMesh()), ...t }, label);
+    const result = await runOp('transform', { mesh: meshPayload(activeMesh()), ...tf }, label);
     replaceActiveMesh(deserializeMesh(result));
-    setStatus(label + '.');
+    setStatus(t(label) + '.');
   } catch (e) { /* status already set */ }
   viewer.frameAll();
 }
@@ -323,7 +324,7 @@ async function opReplacesMesh(op, extra, label) {
   try {
     const result = await runOp(op, { mesh: meshPayload(activeMesh()), ...extra }, label);
     replaceActiveMesh(deserializeMesh(result));
-    setStatus(label + ' — done.');
+    setStatus(t(label) + t(' — done.'));
   } catch (e) { /* status set */ }
 }
 
@@ -428,18 +429,18 @@ const resultsEl = $('#analyzeResults');
 function showResults(title, rows) {
   resultsEl.innerHTML = '';
   const h = document.createElement('h4');
-  h.textContent = title;
+  h.textContent = t(title);
   resultsEl.appendChild(h);
-  const t = document.createElement('table');
+  const tbl = document.createElement('table');
   for (const [k, v, cls] of rows) {
     const tr = document.createElement('tr');
-    const td1 = document.createElement('td'); td1.textContent = k;
+    const td1 = document.createElement('td'); td1.textContent = t(k);
     const td2 = document.createElement('td'); td2.innerHTML = v;
     if (cls) td2.className = cls;
     tr.append(td1, td2);
-    t.appendChild(tr);
+    tbl.appendChild(tr);
   }
-  resultsEl.appendChild(t);
+  resultsEl.appendChild(tbl);
 }
 
 function fmtNum(n, digits = 2) {
@@ -454,12 +455,12 @@ $('#btnStats').onclick = async () => {
   showResults('Mesh Statistics', [
     ['Vertices', s.vertices.toLocaleString()],
     ['Triangles', s.triangles.toLocaleString()],
-    ['Size X', fmtNum(s.bounds.size[0]) + ' units'],
-    ['Size Y', fmtNum(s.bounds.size[1]) + ' units'],
-    ['Size Z', fmtNum(s.bounds.size[2]) + ' units'],
-    ['Indexed', s.indexed ? 'yes' : 'no (triangle soup)'],
-    ['Normals', s.hasNormals ? 'present' : 'missing'],
-    ['UVs', s.hasUVs ? 'present' : 'missing'],
+    ['Size X', fmtNum(s.bounds.size[0]) + ' ' + t('units')],
+    ['Size Y', fmtNum(s.bounds.size[1]) + ' ' + t('units')],
+    ['Size Z', fmtNum(s.bounds.size[2]) + ' ' + t('units')],
+    ['Indexed', s.indexed ? t('yes') : t('no (triangle soup)')],
+    ['Normals', s.hasNormals ? t('present') : t('missing')],
+    ['UVs', s.hasUVs ? t('present') : t('missing')],
   ]);
   viewer.showBoundingBox(true);
   $('#chkBBox').checked = true;
@@ -469,12 +470,12 @@ $('#btnStats').onclick = async () => {
 $('#btnVolume').onclick = async () => {
   if (!activeMesh()) return;
   const r = await runOp('volumeArea', { mesh: meshPayload(activeMesh()) }, 'Computing volume & area');
-  const unit = 'units³';
+  const unit = t('units³');
   showResults('Volume & Surface Area', [
     ['Volume', fmtNum(r.volume) + ' ' + unit],
-    ['Surface area', fmtNum(r.area) + ' units²'],
-    ['Volume (if mm)', fmtNum(r.volume / 1000) + ' cm³'],
-    ['Note', 'Volume assumes a watertight mesh'],
+    ['Surface area', fmtNum(r.area) + ' ' + t('units²')],
+    ['Volume (if mm)', fmtNum(r.volume / 1000) + ' ' + t('cm³')],
+    ['Note', t('Volume assumes a watertight mesh')],
   ]);
 };
 
@@ -482,7 +483,7 @@ $('#btnManifold').onclick = async () => {
   if (!activeMesh()) return;
   const r = await runOp('manifold', { mesh: meshPayload(activeMesh()) }, 'Checking manifold');
   showResults('Manifold Check', [
-    ['Watertight', r.watertight ? 'yes' : 'no', r.watertight ? 'ok' : 'err'],
+    ['Watertight', r.watertight ? t('yes') : t('no'), r.watertight ? 'ok' : 'err'],
     ['Boundary edges', String(r.boundaryEdges), r.boundaryEdges === 0 ? 'ok' : 'err'],
     ['Non-manifold edges', String(r.nonManifoldEdges), r.nonManifoldEdges === 0 ? 'ok' : 'err'],
     ['Non-manifold vertices', String(r.nonManifoldVertices), r.nonManifoldVertices === 0 ? 'ok' : 'warn'],
@@ -501,8 +502,8 @@ $('#btnOverhang').onclick = async () => {
   showResults('Overhang Detection', [
     ['Threshold', `> ${deg}° from vertical`],
     ['Overhanging faces', r.overhangFaces.toLocaleString(), r.overhangFaces > 0 ? 'warn' : 'ok'],
-    ['Overhanging area', fmtNum(r.overhangArea) + ' units²', r.overhangPercent > 0 ? 'warn' : 'ok'],
-    ['Total area', fmtNum(r.totalArea) + ' units²'],
+    ['Overhanging area', fmtNum(r.overhangArea) + ' ' + t('units²'), r.overhangPercent > 0 ? 'warn' : 'ok'],
+    ['Total area', fmtNum(r.totalArea) + ' ' + t('units²')],
     ['Overhang %', fmtNum(r.overhangPercent, 1) + '%', r.overhangPercent > 5 ? 'warn' : 'ok'],
   ]);
   setStatus(`Overhang analysis done — ${r.overhangPercent.toFixed(1)}% of surface flagged (highlighted red).`, true);
@@ -515,9 +516,9 @@ $('#btnWall').onclick = async () => {
   showResults('Wall Thickness (approximate)', [
     ['Method', 'inward ray sampling (approximation)'],
     ['Samples', String(r.samples.length)],
-    ['Minimum', fmtNum(r.min) + ' units', r.min < 1 ? 'err' : 'ok'],
-    ['Average', fmtNum(r.avg) + ' units'],
-    ['Maximum', fmtNum(r.max) + ' units'],
+    ['Minimum', fmtNum(r.min) + ' ' + t('units'), r.min < 1 ? 'err' : 'ok'],
+    ['Average', fmtNum(r.avg) + ' ' + t('units')],
+    ['Maximum', fmtNum(r.max) + ' ' + t('units')],
     ['Thin spots (< 1 unit)', String(thin), thin > 0 ? 'warn' : 'ok'],
   ]);
   setStatus('Wall thickness check done (approximate — see limitations).', true);
@@ -531,7 +532,7 @@ $('#btnPrintability').onclick = async () => {
   for (const w of r.warnings) rows.push(['Warning', escapeHtml(w), 'warn']);
   for (const n of r.info) rows.push(['Info', escapeHtml(n), 'ok']);
   rows.push(['Triangles', r.stats.triangles.toLocaleString()]);
-  rows.push(['Volume', fmtNum(r.stats.volume) + ' units³']);
+  rows.push(['Volume', fmtNum(r.stats.volume) + ' ' + t('cubic_units')]);
   showResults('Printability Check', rows);
   setStatus(r.issues.length ? `${r.issues.length} issue(s) found — see results.` : 'Printability check passed.', true);
 };
@@ -685,7 +686,7 @@ function handleMeasureClick(e) {
   if (state.measureMode === 'distance' && pts.length === 2) {
     const d = pts[0].distanceTo(pts[1]);
     viewer.addLine(pts[0], pts[1]);
-    viewer.addLabel(pts[0].clone().add(pts[1]).multiplyScalar(0.5), fmtNum(d) + ' units');
+    viewer.addLabel(pts[0].clone().add(pts[1]).multiplyScalar(0.5), fmtNum(d) + ' ' + t('units'));
     state.measurePoints = [];
   } else if (state.measureMode === 'angle' && pts.length === 3) {
     const [a, b, c] = pts;
@@ -735,8 +736,8 @@ const EXPORT_NOTES = {
   gltf: 'glTF 2.0 JSON with base64-embedded buffer. Human-readable glTF.',
   '3mf': '3MF. Modern 3D-printing format; multiple objects, XML+ZIP package, units in millimeters.',
 };
-$('#exportFormat').onchange = (e) => { $('#exportNotes').textContent = EXPORT_NOTES[e.target.value] || ''; };
-$('#exportNotes').textContent = EXPORT_NOTES.stl;
+$('#exportFormat').onchange = (e) => { $('#exportNotes').textContent = t(EXPORT_NOTES[e.target.value] || ''); };
+$('#exportNotes').textContent = t(EXPORT_NOTES.stl);
 
 $('#btnDownload').onclick = async () => {
   if (!activeMesh()) return setStatus('Load a model first.', true);
@@ -745,7 +746,7 @@ $('#btnDownload').onclick = async () => {
   const meshes = useAll ? [...state.models.values()].map(m => m.mesh) : [activeMesh()];
   const baseName = useAll ? '3dtools-models' : activeModel().name.replace(/[^\w\-]+/g, '_');
   try {
-    setStatus('Converting…', true);
+    setStatus(t('Converting…'), true);
     setProgress(0);
     await new Promise(r => setTimeout(r, 20)); // let the UI paint
     let blob, filename;
