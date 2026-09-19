@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Все 3D-инструменты — просмотр, конвертеры, меш и печать | 3DTools</title>
+<meta name="description" content="Полный список 3DTools: просмотр форматов, конвертеры, ремонт и редактирование мешей, анализ для 3D-печати — всё бесплатно, локально и в браузере.">
+<link rel="canonical" href="/ru/tools.html">
+<link rel="alternate" hreflang="en" href="https://3dtools.example/tools.html">
+<link rel="alternate" hreflang="ru" href="https://3dtools.example/ru/tools.html">
+<link rel="alternate" hreflang="x-default" href="https://3dtools.example/tools.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="3DTools">
+<meta property="og:title" content="Все 3D-инструменты — просмотр, конвертеры, меш и печать | 3DTools">
+<meta property="og:description" content="Полный список 3DTools: просмотр форматов, конвертеры, ремонт и редактирование мешей, анализ для 3D-печати — всё бесплатно, локально и в браузере.">
+<meta property="og:url" content="https://3dtools.example/ru/tools.html">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f7cff' d='M12 2 3 7v10l9 5 9-5V7z'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Все 3D-инструменты — просмотр, конвертеры, меш и печать | 3DTools","url":"https://3dtools.example/ru/tools.html","applicationCategory":"DesignApplication","operatingSystem":"Any (modern browser)","browserRequirements":"Requires WebGL","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Полный список 3DTools: просмотр форматов, конвертеры, ремонт и редактирование мешей, анализ для 3D-печати — всё бесплатно, локально и в браузере."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Нужно ли что-то устанавливать?","acceptedAnswer":{"@type":"Answer","text":"Нет. Студия — это веб-страница; все вычисления выполняются в вашем браузере."}},{"@type":"Question","name":"Можно ли использовать несколько инструментов подряд?","acceptedAnswer":{"@type":"Answer","text":"Да — студия работает как конвейер: загрузите файл, отремонтируйте, упростите, затем конвертируйте и скачайте. Каждая операция применяется к текущему мешу."}},{"@type":"Question","name":"Какие инструменты работают в worker?","acceptedAnswer":{"@type":"Answer","text":"Все тяжёлые операции (ремонт, децимация, полости, резка, анализ) выполняются в Web Worker с индикатором прогресса, поэтому интерфейс остаётся отзывчивым."}}]}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="/ru/"><span class="cube"></span>3DTools</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/ru/">Главная</a>
+      <a href="/ru/tools.html" aria-current="page">Все инструменты</a>
+      <a href="/ru/formats.html">Форматы</a>
+      <a href="/ru/viewer/stl-viewer.html">Просмотр</a>
+      <a href="/ru/mesh-tools.html">Инструменты меша</a>
+      <a href="/ru/3d-printing-tools.html">3D-печать</a>
+      <a href="/ru/about.html">О сайте</a>
+    </nav>
+    <a class="lang-toggle" href="/tools.html">EN</a>
+  </div>
+</header>
+
+<div class="page-hero"><div class="wrap">
+<h1>Все инструменты</h1>
+<p>Каждый инструмент ниже — реальная рабочая реализация, выполняющаяся локально в вашем браузере. В студии они сгруппированы на боковой панели: Вид, Преобразование, Ремонт, Правка, Анализ и Конвертация.</p>
+<div class="wrap" style="padding-top:1.2rem"><a class="btn primary" href="/app.html">Открыть студию</a> <span style="color:var(--text-dim);font-size:.9rem;margin-left:.6rem">Работает локально в вашем браузере — файл не покидает ваше устройство.</span></div>
+</div></div>
+<section class="content-block"><div class="wrap"><h2 id="viewers">Просмотр</h2>
+<div class="card-grid">
+  <a class="card" href="/viewer/stl-viewer.html"><span class="tag">Просмотр</span><h3>Просмотр STL</h3><p>Бинарный и ASCII STL, проверка замкнутости и конвейер ремонта.</p></a>
+  <a class="card" href="/viewer/obj-viewer.html"><span class="tag">Просмотр</span><h3>Просмотр OBJ</h3><p>Объекты, группы, нормали и UV, вкладки для нескольких объектов.</p></a>
+  <a class="card" href="/viewer/glb-gltf-viewer.html"><span class="tag">Просмотр</span><h3>Просмотр GLB/GLTF</h3><p>Ассеты glTF 2.0 с применёнными трансформациями узлов.</p></a>
+  <a class="card" href="/viewer/ply-viewer.html"><span class="tag">Просмотр</span><h3>Просмотр PLY</h3><p>ASCII/бинарный PLY, включая цвета вершин и облака точек.</p></a>
+  <a class="card" href="/viewer/3mf-viewer.html"><span class="tag">Просмотр</span><h3>Просмотр 3MF</h3><p>Распаковка и инспекция проектов 3MF с трансформациями сборки.</p></a>
+  <a class="card" href="/viewer/multi-model-viewer.html"><span class="tag">Просмотр</span><h3>Мульти-просмотр</h3><p>Загрузка нескольких моделей рядом, сравнение, объединение или разделение.</p></a>
+  <a class="card" href="/viewer/inspection-views.html"><span class="tag">Просмотр</span><h3>Каркас / Рентген / Нормали / Вершины</h3><p>Режимы инспекции для каждого формата.</p></a>
+</div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="converters">Конвертеры</h2>
+<div class="card-grid">
+  <a class="card" href="/convert/stl-to-obj.html"><span class="tag">Конвертер</span><h3>STL → OBJ</h3><p>Сварка набора треугольников в настоящий индексированный меш.</p></a>
+  <a class="card" href="/convert/obj-to-stl.html"><span class="tag">Конвертер</span><h3>OBJ → STL</h3><p>Сведение объектов OBJ в печатный STL.</p></a>
+  <a class="card" href="/convert/stl-to-3mf.html"><span class="tag">Конвертер</span><h3>STL → 3MF</h3><p>Упаковка треугольников в современный контейнер 3MF.</p></a>
+  <a class="card" href="/convert/obj-to-glb.html"><span class="tag">Конвертер</span><h3>OBJ → GLB</h3><p>Создание однофайловых glTF-ассетов для веба.</p></a>
+  <a class="card" href="/convert/glb-to-obj.html"><span class="tag">Конвертер</span><h3>GLB → OBJ</h3><p>Извлечение редактируемой геометрии из glTF.</p></a>
+  <a class="card" href="/convert/gltf-to-glb.html"><span class="tag">Конвертер</span><h3>GLTF → GLB</h3><p>Упаковка многофайлового glTF в один .glb.</p></a>
+  <a class="card" href="/convert/ply-to-obj.html"><span class="tag">Конвертер</span><h3>PLY → OBJ</h3><p>Превращение сканов в OBJ-меши.</p></a>
+  <a class="card" href="/convert/3mf-to-stl.html"><span class="tag">Конвертер</span><h3>3MF → STL</h3><p>Распаковка проектов печати для старых слайсеров.</p></a>
+</div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="mesh">Инструменты меша</h2>
+<p>Масштаб, поворот, отражение, центрирование и выравнивание; ремонт (сварка, удаление дублей граней, исправление обхода); пересчёт или инвертирование нормалей; упрощение/децимация с квадратичной метрикой ошибок; объединение и разделение объектов; удаление выделенных граней или вершин; создание полостей; добавление оснований; резка и разделение плоскостью. Подробности и ограничения каждой операции — на <a href="/mesh-tools.html">странице инструментов меша</a>.</p></div></section>
+<section class="content-block"><div class="wrap"><h2 id="print">Инструменты 3D-печати</h2>
+<p>Проверка пригодности к печати, проверка замкнутости/водонепроницаемости, толщина стенок (приближённо), поиск нависаний, статистика меша, габаритный бокс, объём, площадь поверхности, ориентация, поперечные сечения, измерение расстояний/углов и скриншоты вьюпорта. См. <a href="/3d-printing-tools.html">страницу инструментов 3D-печати</a>.</p></div></section>
+<div class="wrap"><div class="ad-slot" aria-label="Advertisement"></div></div>
+<section class="content-block"><div class="wrap"><h2 id="faq">Часто задаваемые вопросы</h2><div class="faq"><details><summary>Нужно ли что-то устанавливать?</summary><p>Нет. Студия — это веб-страница; все вычисления выполняются в вашем браузере.</p></details>
+<details><summary>Можно ли использовать несколько инструментов подряд?</summary><p>Да — студия работает как конвейер: загрузите файл, отремонтируйте, упростите, затем конвертируйте и скачайте. Каждая операция применяется к текущему мешу.</p></details>
+<details><summary>Какие инструменты работают в worker?</summary><p>Все тяжёлые операции (ремонт, децимация, полости, резка, анализ) выполняются в Web Worker с индикатором прогресса, поэтому интерфейс остаётся отзывчивым.</p></details></div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="related">Похожие инструменты</h2><div class="card-grid"><a class="card" href="/ru/app.html"><span class="tag">Инструмент</span><h3>Открыть студию</h3><p>Весь набор инструментов в одном вьюпорте.</p></a><a class="card" href="/ru/formats.html"><span class="tag">Инструмент</span><h3>Поддерживаемые форматы</h3><p>Возможности каждого формата.</p></a><a class="card" href="/ru/mesh-tools.html"><span class="tag">Инструмент</span><h3>Инструменты меша</h3><p>Подробности ремонта и редактирования.</p></a><a class="card" href="/ru/3d-printing-tools.html"><span class="tag">Инструмент</span><h3>Инструменты 3D-печати</h3><p>Подробности анализа.</p></a></div></div></section>
+<footer class="site-footer">
+  <div class="inner">
+    <div>
+      <h4>3DTools</h4>
+      <p style="color:var(--text-dim);font-size:.85rem;margin:0">Бесплатные браузерные инструменты для 3D-моделей. Вся обработка выполняется локально на вашем устройстве — без загрузок, аккаунтов и отслеживания файлов.</p>
+    </div>
+    <div>
+      <h4>Просмотр</h4>
+      <ul>
+        <li><a href="/ru/viewer/stl-viewer.html">Просмотр STL</a></li>
+        <li><a href="/ru/viewer/obj-viewer.html">Просмотр OBJ</a></li>
+        <li><a href="/ru/viewer/glb-gltf-viewer.html">Просмотр GLB/GLTF</a></li>
+        <li><a href="/ru/viewer/ply-viewer.html">Просмотр PLY</a></li>
+        <li><a href="/ru/viewer/3mf-viewer.html">Просмотр 3MF</a></li>
+        <li><a href="/ru/viewer/multi-model-viewer.html">Мульти-просмотр</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Конвертеры</h4>
+      <ul>
+        <li><a href="/ru/convert/stl-to-obj.html">STL в OBJ</a></li>
+        <li><a href="/ru/convert/obj-to-stl.html">OBJ в STL</a></li>
+        <li><a href="/ru/convert/stl-to-3mf.html">STL в 3MF</a></li>
+        <li><a href="/ru/convert/obj-to-glb.html">OBJ в GLB</a></li>
+        <li><a href="/ru/convert/glb-to-obj.html">GLB в OBJ</a></li>
+        <li><a href="/ru/convert/gltf-to-glb.html">GLTF в GLB</a></li>
+        <li><a href="/ru/convert/ply-to-obj.html">PLY в OBJ</a></li>
+        <li><a href="/ru/convert/3mf-to-stl.html">3MF в STL</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Инструменты</h4>
+      <ul>
+        <li><a href="/ru/mesh-tools.html">Ремонт и правка меша</a></li>
+        <li><a href="/ru/3d-printing-tools.html">Инструменты 3D-печати</a></li>
+        <li><a href="/app.html">Открыть студию</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Сайт</h4>
+      <ul>
+        <li><a href="/ru/about.html">О сайте</a></li>
+        <li><a href="/ru/contact.html">Контакты</a></li>
+        <li><a href="/ru/privacy.html">Политика конфиденциальности</a></li>
+        <li><a href="/ru/terms.html">Условия использования</a></li>
+        <li><a href="/ru/disclaimer.html">Отказ от ответственности</a></li>
+        <li><a href="/sitemap.xml">Карта сайта</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-note wrap">&copy; 2026 3DTools. 3DTools обрабатывает модели локально в вашем браузере и никогда не получает ваши файлы.</div>
+</footer>
+</body>
+</html>

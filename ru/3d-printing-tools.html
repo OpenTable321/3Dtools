@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Инструменты анализа для 3D-печати — пригодность, замкнутость, нависания | 3DTools</title>
+<meta name="description" content="Бесплатные локальные проверки для 3D-печати: замкнутость/водонепроницаемость, поиск нависаний, оценка толщины стенок, объём, отчёт о пригодности, ориентация и сечения.">
+<link rel="canonical" href="/ru/3d-printing-tools.html">
+<link rel="alternate" hreflang="en" href="https://3dtools.example/3d-printing-tools.html">
+<link rel="alternate" hreflang="ru" href="https://3dtools.example/ru/3d-printing-tools.html">
+<link rel="alternate" hreflang="x-default" href="https://3dtools.example/3d-printing-tools.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="3DTools">
+<meta property="og:title" content="Инструменты анализа для 3D-печати — пригодность, замкнутость, нависания | 3DTools">
+<meta property="og:description" content="Бесплатные локальные проверки для 3D-печати: замкнутость/водонепроницаемость, поиск нависаний, оценка толщины стенок, объём, отчёт о пригодности, ориентация и сечения.">
+<meta property="og:url" content="https://3dtools.example/ru/3d-printing-tools.html">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f7cff' d='M12 2 3 7v10l9 5 9-5V7z'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Инструменты анализа для 3D-печати — пригодность, замкнутость, нависания | 3DTools","url":"https://3dtools.example/ru/3d-printing-tools.html","applicationCategory":"DesignApplication","operatingSystem":"Any (modern browser)","browserRequirements":"Requires WebGL","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Бесплатные локальные проверки для 3D-печати: замкнутость/водонепроницаемость, поиск нависаний, оценка толщины стенок, объём, отчёт о пригодности, ориентация и сечения."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Что значит «не водонепроницаемый»?","acceptedAnswer":{"@type":"Answer","text":"На поверхности меша есть дыры (граничные рёбра) или топологические ошибки (немногообразные рёбра), поэтому слайсер не может надёжно отличить внутреннее от внешнего — печать может не удаться или дать неверный результат."}},{"@type":"Question","name":"Порог нависаний 45° — всегда верно?","acceptedAnswer":{"@type":"Answer","text":"45° — распространённое эмпирическое правило для FDM без поддержек. Настройте угол в инструменте; материалы и принтеры различаются."}},{"@type":"Question","name":"Насколько точен расчёт объёма?","acceptedAnswer":{"@type":"Answer","text":"Точен для замкнутого меша (сумма по треугольникам через теорему о дивергенции). Если в меша есть дыры, число бессмысленно."}},{"@type":"Question","name":"Проверяется ли объём моего принтера?","acceptedAnswer":{"@type":"Answer","text":"По умолчанию используется 220×220×250 мм. Проверка показывает размеры, чтобы вы могли сравнить со своим объёмом печати."}}]}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="/ru/"><span class="cube"></span>3DTools</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/ru/">Главная</a>
+      <a href="/ru/tools.html">Все инструменты</a>
+      <a href="/ru/formats.html">Форматы</a>
+      <a href="/ru/viewer/stl-viewer.html">Просмотр</a>
+      <a href="/ru/mesh-tools.html">Инструменты меша</a>
+      <a href="/ru/3d-printing-tools.html" aria-current="page">3D-печать</a>
+      <a href="/ru/about.html">О сайте</a>
+    </nav>
+    <a class="lang-toggle" href="/3d-printing-tools.html">EN</a>
+  </div>
+</header>
+
+<div class="page-hero"><div class="wrap">
+<h1>Инструменты 3D-печати</h1>
+<p>Проверьте, будет ли модель реально печататься — до того, как потратите филамент. Эти инструменты анализа работают локально с мешем: водонепроницаемость, нависания, толщина стенок, размер относительно объёма принтера и сводный отчёт о пригодности к печати.</p>
+<div class="wrap" style="padding-top:1.2rem"><a class="btn primary" href="/app.html?tool=printability">Запустить проверку пригодности</a> <span style="color:var(--text-dim);font-size:.9rem;margin-left:.6rem">Работает локально в вашем браузере — файл не покидает ваше устройство.</span></div>
+</div></div>
+<section class="content-block"><div class="wrap"><h2 id="checks">Проверки</h2>
+<ul>
+<li><strong>Проверка пригодности к печати</strong> — один отчёт, объединяющий все проверки ниже с проблемами, предупреждениями и заметками.</li>
+<li><strong>Проверка замкнутости</strong> — точный топологический тест: считает граничные рёбра (дыры), немногообразные рёбра и немногообразные вершины. У водонепроницаемого меша все значения равны нулю.</li>
+<li><strong>Поиск нависаний</strong> — отмечает грани, чья нормаль смотрит вниз в пределах порогового угла (по умолчанию 45°), показывает их площадь в процентах и подсвечивает красным во вьюпорте.</li>
+<li><strong>Проверка толщины стенок</strong> — оценивает локальную толщину, пуская лучи внутрь из точек поверхности (приближение — см. ниже).</li>
+<li><strong>Статистика меша</strong> — вершины, треугольники, габаритный бокс, статус индексированности.</li>
+<li><strong>Габаритный бокс / объём / площадь</strong> — точные геометрические величины (объём через теорему о дивергенции, предполагает замкнутость).</li>
+</ul></div></section>
+<section class="content-block"><div class="wrap"><h2 id="prep">Инструменты подготовки</h2>
+<ul>
+<li><strong>Ориентация модели</strong> — опускание на пол или авто-ориентация поворотом доминирующей нормали грани вниз (приближение), затем выравнивание на столе.</li>
+<li><strong>Поперечное сечение</strong> — двигает секущую плоскость вдоль любой оси и показывает контур — классический способ найти скрытые дыры и перевёрнутую геометрию.</li>
+<li><strong>Измерение расстояния / угла</strong> — кликайте точки на поверхности для измерения между ними.</li>
+<li><strong>Скриншот модели</strong> — сохранение вьюпорта как PNG для документации.</li>
+<li><strong>Центр + пол</strong> и остальные <a href="/mesh-tools.html">инструменты ремонта меша</a> готовят геометрию к слайсингу.</li>
+</ul></div></section>
+<section class="content-block"><div class="wrap"><h2 id="accuracy">Точность и ограничения</h2><p>Проверки замкнутости, углы нависаний, объём и площадь — точные вычисления по данным треугольников. <strong>Толщина стенок — приближение</strong>: она сэмплирует точки поверхности и пускает лучи внутрь по нормали, сообщая расстояние до первого пересечения с поверхностью. На вогнутых формах может локально завышать или занижать, и она ничего не знает о сопле вашего принтера: сочетайте её вывод со здравым смыслом. Стандартный объём принтера для проверки размера (220×220×250 мм) — типичный потребительский принтер; у вашей машины может быть иначе.</p></div></section>
+<section class="content-block"><div class="wrap"><h2 id="workflow">Разумный процесс перед печатью</h2>
+<ol>
+<li>Загрузите модель и опустите её на пол.</li>
+<li>Запустите проверку пригодности — исправьте проблемы <a href="/mesh-tools.html">инструментами ремонта</a>.</li>
+<li>Проверьте нависания и решите вопрос с поддержками или переориентацией.</li>
+<li>Экспортируйте STL или 3MF и слайсите как обычно.</li>
+</ol></div></section>
+<div class="wrap"><div class="ad-slot" aria-label="Advertisement"></div></div>
+<section class="content-block"><div class="wrap"><h2 id="faq">Часто задаваемые вопросы</h2><div class="faq"><details><summary>Что значит «не водонепроницаемый»?</summary><p>На поверхности меша есть дыры (граничные рёбра) или топологические ошибки (немногообразные рёбра), поэтому слайсер не может надёжно отличить внутреннее от внешнего — печать может не удаться или дать неверный результат.</p></details>
+<details><summary>Порог нависаний 45° — всегда верно?</summary><p>45° — распространённое эмпирическое правило для FDM без поддержек. Настройте угол в инструменте; материалы и принтеры различаются.</p></details>
+<details><summary>Насколько точен расчёт объёма?</summary><p>Точен для замкнутого меша (сумма по треугольникам через теорему о дивергенции). Если в меша есть дыры, число бессмысленно.</p></details>
+<details><summary>Проверяется ли объём моего принтера?</summary><p>По умолчанию используется 220×220×250 мм. Проверка показывает размеры, чтобы вы могли сравнить со своим объёмом печати.</p></details></div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="related">Похожие инструменты</h2><div class="card-grid"><a class="card" href="/ru/mesh-tools.html"><span class="tag">Инструмент</span><h3>Инструменты меша</h3><p>Исправьте то, что нашли проверки.</p></a><a class="card" href="/ru/convert/stl-to-3mf.html"><span class="tag">Конвертер</span><h3>STL в 3MF</h3><p>Экспорт для современных слайсеров.</p></a><a class="card" href="/ru/viewer/inspection-views.html"><span class="tag">Просмотр</span><h3>Режимы инспекции</h3><p>Рентген для внутренней геометрии.</p></a><a class="card" href="/ru/app.html"><span class="tag">Инструмент</span><h3>Открыть студию</h3><p>Запустите проверки на своей модели.</p></a></div></div></section>
+<footer class="site-footer">
+  <div class="inner">
+    <div>
+      <h4>3DTools</h4>
+      <p style="color:var(--text-dim);font-size:.85rem;margin:0">Бесплатные браузерные инструменты для 3D-моделей. Вся обработка выполняется локально на вашем устройстве — без загрузок, аккаунтов и отслеживания файлов.</p>
+    </div>
+    <div>
+      <h4>Просмотр</h4>
+      <ul>
+        <li><a href="/ru/viewer/stl-viewer.html">Просмотр STL</a></li>
+        <li><a href="/ru/viewer/obj-viewer.html">Просмотр OBJ</a></li>
+        <li><a href="/ru/viewer/glb-gltf-viewer.html">Просмотр GLB/GLTF</a></li>
+        <li><a href="/ru/viewer/ply-viewer.html">Просмотр PLY</a></li>
+        <li><a href="/ru/viewer/3mf-viewer.html">Просмотр 3MF</a></li>
+        <li><a href="/ru/viewer/multi-model-viewer.html">Мульти-просмотр</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Конвертеры</h4>
+      <ul>
+        <li><a href="/ru/convert/stl-to-obj.html">STL в OBJ</a></li>
+        <li><a href="/ru/convert/obj-to-stl.html">OBJ в STL</a></li>
+        <li><a href="/ru/convert/stl-to-3mf.html">STL в 3MF</a></li>
+        <li><a href="/ru/convert/obj-to-glb.html">OBJ в GLB</a></li>
+        <li><a href="/ru/convert/glb-to-obj.html">GLB в OBJ</a></li>
+        <li><a href="/ru/convert/gltf-to-glb.html">GLTF в GLB</a></li>
+        <li><a href="/ru/convert/ply-to-obj.html">PLY в OBJ</a></li>
+        <li><a href="/ru/convert/3mf-to-stl.html">3MF в STL</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Инструменты</h4>
+      <ul>
+        <li><a href="/ru/mesh-tools.html">Ремонт и правка меша</a></li>
+        <li><a href="/ru/3d-printing-tools.html">Инструменты 3D-печати</a></li>
+        <li><a href="/app.html">Открыть студию</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Сайт</h4>
+      <ul>
+        <li><a href="/ru/about.html">О сайте</a></li>
+        <li><a href="/ru/contact.html">Контакты</a></li>
+        <li><a href="/ru/privacy.html">Политика конфиденциальности</a></li>
+        <li><a href="/ru/terms.html">Условия использования</a></li>
+        <li><a href="/ru/disclaimer.html">Отказ от ответственности</a></li>
+        <li><a href="/sitemap.xml">Карта сайта</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-note wrap">&copy; 2026 3DTools. 3DTools обрабатывает модели локально в вашем браузере и никогда не получает ваши файлы.</div>
+</footer>
+</body>
+</html>

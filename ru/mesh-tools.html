@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Бесплатные инструменты ремонта и правки мешей — локально, в браузере | 3DTools</title>
+<meta name="description" content="Ремонт, сварка, децимация, полости, резка, разделение, объединение и трансформация 3D-мешей в браузере. Честные описания того, что делает каждая операция, и её ограничений.">
+<link rel="canonical" href="/ru/mesh-tools.html">
+<link rel="alternate" hreflang="en" href="https://3dtools.example/mesh-tools.html">
+<link rel="alternate" hreflang="ru" href="https://3dtools.example/ru/mesh-tools.html">
+<link rel="alternate" hreflang="x-default" href="https://3dtools.example/mesh-tools.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="3DTools">
+<meta property="og:title" content="Бесплатные инструменты ремонта и правки мешей — локально, в браузере | 3DTools">
+<meta property="og:description" content="Ремонт, сварка, децимация, полости, резка, разделение, объединение и трансформация 3D-мешей в браузере. Честные описания того, что делает каждая операция, и её ограничений.">
+<meta property="og:url" content="https://3dtools.example/ru/mesh-tools.html">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f7cff' d='M12 2 3 7v10l9 5 9-5V7z'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Бесплатные инструменты ремонта и правки мешей — локально, в браузере | 3DTools","url":"https://3dtools.example/ru/mesh-tools.html","applicationCategory":"DesignApplication","operatingSystem":"Any (modern browser)","browserRequirements":"Requires WebGL","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Ремонт, сварка, децимация, полости, резка, разделение, объединение и трансформация 3D-мешей в браузере. Честные описания того, что делает каждая операция, и её ограничений."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Децимация — это с потерями?","acceptedAnswer":{"@type":"Answer","text":"Да — уменьшение числа треугольников всегда меняет геометрию. Квадратичная децимация минимизирует ошибку поверхности, а статус показывает точный результат. Сохраните копию оригинала."}},{"@type":"Question","name":"Почему полость создала странную геометрию?","acceptedAnswer":{"@type":"Answer","text":"Наивное смещение внутрь самопересекается там, где модель тоньше примерно двойной толщины стенки или в острых вогнутостях. Лучше всего работает на массивных выпуклых формах; после этого запустите «Ремонт» и проверьте в режиме «Рентген»."}},{"@type":"Question","name":"Как удалить часть модели?","acceptedAnswer":{"@type":"Answer","text":"Откройте вкладку «Правка», выберите режим выделения «Грани» или «Вершины», Ctrl+клик во вьюпорте для выделения, затем «Удалить выделенное»."}},{"@type":"Question","name":"Можно ли отменить операцию?","acceptedAnswer":{"@type":"Answer","text":"Стека отмены нет — сохраните исходный файл и загрузите его заново, если операция пошла не так."}}]}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="/ru/"><span class="cube"></span>3DTools</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/ru/">Главная</a>
+      <a href="/ru/tools.html">Все инструменты</a>
+      <a href="/ru/formats.html">Форматы</a>
+      <a href="/ru/viewer/stl-viewer.html">Просмотр</a>
+      <a href="/ru/mesh-tools.html" aria-current="page">Инструменты меша</a>
+      <a href="/ru/3d-printing-tools.html">3D-печать</a>
+      <a href="/ru/about.html">О сайте</a>
+    </nav>
+    <a class="lang-toggle" href="/mesh-tools.html">EN</a>
+  </div>
+</header>
+
+<div class="page-hero"><div class="wrap">
+<h1>Инструменты ремонта и правки мешей</h1>
+<p>Полный набор операций над мешами для исправления битых загрузок, подготовки к печати и оптимизации ассетов — всё выполняется локально в Web Worker. Каждый инструмент ниже описывает точно, что он делает, и где операция приближённая — об этом сказано прямо.</p>
+<div class="wrap" style="padding-top:1.2rem"><a class="btn primary" href="/app.html?tool=repair">Открыть инструменты меша</a> <span style="color:var(--text-dim);font-size:.9rem;margin-left:.6rem">Работает локально в вашем браузере — файл не покидает ваше устройство.</span></div>
+</div></div>
+<section class="content-block"><div class="wrap"><h2 id="transform">Инструменты трансформации</h2>
+<ul>
+<li><strong>Масштаб</strong> — общий или по осям, применяется к вершинам (нормали остаются корректными при общем масштабе).</li>
+<li><strong>Поворот</strong> — быстрые 90° вокруг X/Y/Z или произвольные углы вокруг любой оси.</li>
+<li><strong>Зеркало</strong> — отражение через плоскость, перпендикулярную X, Y или Z; обход треугольников инвертируется, чтобы меш оставался валидным.</li>
+<li><strong>Центрирование / выравнивание</strong> — центрирование габаритного бокса в начале координат, опускание модели так, чтобы нижняя точка была на z=0 (пол), или оба действия.</li>
+</ul></div></section>
+<section class="content-block"><div class="wrap"><h2 id="repair">Инструменты ремонта</h2>
+<ul>
+<li><strong>Ремонт меша</strong> — один конвейер: сварка дублей вершин (пространственный хеш с настраиваемым допуском), удаление вырожденных и повторяющихся граней, глобально согласованный обход треугольников по компонентам, разворот вывернутых замкнутых мешей, пересчёт нормалей.</li>
+<li><strong>Удалить дубли вершин</strong> — сварка по допуску; STL-подобные наборы треугольников становятся настоящими индексированными мешами.</li>
+<li><strong>Удалить дубли граней</strong> — удаляет треугольники с идентичными наборами вершин (любого обхода).</li>
+<li><strong>Пересчитать нормали</strong> — сглаженные нормали вершин из геометрии граней; <strong>Инвертировать нормали</strong> разворачивает обход и нормали вместе.</li>
+</ul>
+<div class="callout">Ограничения: ремонт исправляет топологию (дубли, обход, ориентацию) и мелкие зазоры через сварку вершин. Он не заполняет большие отсутствующие участки и не делает ремешинг.</div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="edit">Инструменты редактирования</h2>
+<ul>
+<li><strong>Упрощение / децимация</strong> — коллапс рёбер по квадратичной метрике ошибок (Гарланд–Хекберт) с сохранением границ; вы выбираете процент оставляемых треугольников. UV отбрасываются.</li>
+<li><strong>Объединить объекты</strong> — объединение всех загруженных моделей в один меш (в том числе между форматами).</li>
+<li><strong>Разделить объекты</strong> — разбиение меша на связные компоненты (по общим вершинам).</li>
+<li><strong>Удалить грани / вершины</strong> — Ctrl+клик по граням или вершинам для выделения, затем удаление; меш переиндексируется автоматически.</li>
+<li><strong>Полая модель</strong> — строит внутреннюю оболочку со смещением внутрь (по нормалям вершин), объединённую с внешней поверхностью. Приближение: вогнутые области тоньше двойной толщины стенки могут самопересекаться; после этого запустите ремонт.</li>
+<li><strong>Добавить основание</strong> — добавляет прямоугольную пластину под контуром модели с настраиваемой толщиной и отступом.</li>
+<li><strong>Резка модели</strong> — оставляет одну сторону осевой плоскости с опциональной крышкой (полигон сечения триангулируется методом отсечения ушей, поэтому результат остаётся замкнутым).</li>
+<li><strong>Разделение модели</strong> — резка на две независимые модели (выше/ниже плоскости), каждая с крышкой и скачивается отдельно.</li>
+</ul></div></section>
+<section class="content-block"><div class="wrap"><h2 id="why">Зачем нужен ремонт</h2><p>Слайсерам и инструментам симуляции нужны замкнутые меши с согласованным обходом. Файлы из сканов, загрузок или небрежных экспортеров часто содержат дубли вершин (каждый треугольник изолирован — норма для STL), треугольники нулевой площади, перевёрнутые участки и двойные грани. Проверка замкнутости на вкладке «Анализ» показывает граничные и немногообразные рёбра; конвейер ремонта исправляет механические проблемы. Он не дорисует отсутствующую геометрию — для больших дыр нужен инструмент моделирования.</p></div></section>
+<div class="wrap"><div class="ad-slot" aria-label="Advertisement"></div></div>
+<section class="content-block"><div class="wrap"><h2 id="faq">Часто задаваемые вопросы</h2><div class="faq"><details><summary>Децимация — это с потерями?</summary><p>Да — уменьшение числа треугольников всегда меняет геометрию. Квадратичная децимация минимизирует ошибку поверхности, а статус показывает точный результат. Сохраните копию оригинала.</p></details>
+<details><summary>Почему полость создала странную геометрию?</summary><p>Наивное смещение внутрь самопересекается там, где модель тоньше примерно двойной толщины стенки или в острых вогнутостях. Лучше всего работает на массивных выпуклых формах; после этого запустите «Ремонт» и проверьте в режиме «Рентген».</p></details>
+<details><summary>Как удалить часть модели?</summary><p>Откройте вкладку «Правка», выберите режим выделения «Грани» или «Вершины», Ctrl+клик во вьюпорте для выделения, затем «Удалить выделенное».</p></details>
+<details><summary>Можно ли отменить операцию?</summary><p>Стека отмены нет — сохраните исходный файл и загрузите его заново, если операция пошла не так.</p></details></div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="related">Похожие инструменты</h2><div class="card-grid"><a class="card" href="/ru/3d-printing-tools.html"><span class="tag">Инструмент</span><h3>Инструменты 3D-печати</h3><p>Проверьте результат на пригодность к печати.</p></a><a class="card" href="/ru/convert/stl-to-obj.html"><span class="tag">Конвертер</span><h3>STL в OBJ</h3><p>Сваривает STL-наборы при конвертации.</p></a><a class="card" href="/ru/viewer/inspection-views.html"><span class="tag">Просмотр</span><h3>Режимы инспекции</h3><p>Рентген и каркас для проверки ремонта.</p></a><a class="card" href="/ru/app.html"><span class="tag">Инструмент</span><h3>Открыть студию</h3><p>Все инструменты в одном месте.</p></a></div></div></section>
+<footer class="site-footer">
+  <div class="inner">
+    <div>
+      <h4>3DTools</h4>
+      <p style="color:var(--text-dim);font-size:.85rem;margin:0">Бесплатные браузерные инструменты для 3D-моделей. Вся обработка выполняется локально на вашем устройстве — без загрузок, аккаунтов и отслеживания файлов.</p>
+    </div>
+    <div>
+      <h4>Просмотр</h4>
+      <ul>
+        <li><a href="/ru/viewer/stl-viewer.html">Просмотр STL</a></li>
+        <li><a href="/ru/viewer/obj-viewer.html">Просмотр OBJ</a></li>
+        <li><a href="/ru/viewer/glb-gltf-viewer.html">Просмотр GLB/GLTF</a></li>
+        <li><a href="/ru/viewer/ply-viewer.html">Просмотр PLY</a></li>
+        <li><a href="/ru/viewer/3mf-viewer.html">Просмотр 3MF</a></li>
+        <li><a href="/ru/viewer/multi-model-viewer.html">Мульти-просмотр</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Конвертеры</h4>
+      <ul>
+        <li><a href="/ru/convert/stl-to-obj.html">STL в OBJ</a></li>
+        <li><a href="/ru/convert/obj-to-stl.html">OBJ в STL</a></li>
+        <li><a href="/ru/convert/stl-to-3mf.html">STL в 3MF</a></li>
+        <li><a href="/ru/convert/obj-to-glb.html">OBJ в GLB</a></li>
+        <li><a href="/ru/convert/glb-to-obj.html">GLB в OBJ</a></li>
+        <li><a href="/ru/convert/gltf-to-glb.html">GLTF в GLB</a></li>
+        <li><a href="/ru/convert/ply-to-obj.html">PLY в OBJ</a></li>
+        <li><a href="/ru/convert/3mf-to-stl.html">3MF в STL</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Инструменты</h4>
+      <ul>
+        <li><a href="/ru/mesh-tools.html">Ремонт и правка меша</a></li>
+        <li><a href="/ru/3d-printing-tools.html">Инструменты 3D-печати</a></li>
+        <li><a href="/app.html">Открыть студию</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Сайт</h4>
+      <ul>
+        <li><a href="/ru/about.html">О сайте</a></li>
+        <li><a href="/ru/contact.html">Контакты</a></li>
+        <li><a href="/ru/privacy.html">Политика конфиденциальности</a></li>
+        <li><a href="/ru/terms.html">Условия использования</a></li>
+        <li><a href="/ru/disclaimer.html">Отказ от ответственности</a></li>
+        <li><a href="/sitemap.xml">Карта сайта</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-note wrap">&copy; 2026 3DTools. 3DTools обрабатывает модели локально в вашем браузере и никогда не получает ваши файлы.</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3DTools — бесплатный просмотр, конвертация и ремонт 3D-моделей локально</title>
+<meta name="description" content="Просматривайте, конвертируйте, ремонтируйте и анализируйте модели STL, OBJ, GLB, PLY и 3MF прямо в браузере. Без загрузок и аккаунтов — всё выполняется локально на вашем устройстве.">
+<link rel="canonical" href="/ru/">
+<link rel="alternate" hreflang="en" href="https://3dtools.example/">
+<link rel="alternate" hreflang="ru" href="https://3dtools.example/ru/">
+<link rel="alternate" hreflang="x-default" href="https://3dtools.example/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="3DTools">
+<meta property="og:title" content="3DTools — бесплатный просмотр, конвертация и ремонт 3D-моделей локально">
+<meta property="og:description" content="Просматривайте, конвертируйте, ремонтируйте и анализируйте модели STL, OBJ, GLB, PLY и 3MF прямо в браузере. Без загрузок и аккаунтов — всё выполняется локально на вашем устройстве.">
+<meta property="og:url" content="https://3dtools.example/ru/">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f7cff' d='M12 2 3 7v10l9 5 9-5V7z'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"3DTools — бесплатный просмотр, конвертация и ремонт 3D-моделей локально","url":"https://3dtools.example/ru/","applicationCategory":"DesignApplication","operatingSystem":"Any (modern browser)","browserRequirements":"Requires WebGL","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Просматривайте, конвертируйте, ремонтируйте и анализируйте модели STL, OBJ, GLB, PLY и 3MF прямо в браузере. Без загрузок и аккаунтов — всё выполняется локально на вашем устройстве."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"3DTools действительно бесплатный?","acceptedAnswer":{"@type":"Answer","text":"Да. Нет системы аккаунтов, платных тарифов и серверных ограничений на файлы — потому что нет и сервера."}},{"@type":"Question","name":"Где обрабатываются мои файлы?","acceptedAnswer":{"@type":"Answer","text":"Полностью на вашем устройстве, в браузере. Сайт — статический хостинг; ничто из открытого никуда не передаётся."}},{"@type":"Question","name":"Какие форматы поддерживаются?","acceptedAnswer":{"@type":"Answer","text":"STL (бинарный + ASCII), OBJ, PLY (бинарный + ASCII, включая облака точек), GLB и GLTF 2.0, а также 3MF (базовая спецификация). Подробности и ограничения — на <a href=\"/formats.html\">странице форматов</a>."}},{"@type":"Question","name":"Работает ли офлайн?","acceptedAnswer":{"@type":"Answer","text":"После загрузки страницы — да: при обработке моделей сетевых запросов не выполняется."}},{"@type":"Question","name":"Какие требования к железу?","acceptedAnswer":{"@type":"Answer","text":"Любая машина с браузером, поддерживающим WebGL. Большие меши обрабатываются в worker-потоке; очень большие файлы ограничены памятью устройства."}}]}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="/ru/"><span class="cube"></span>3DTools</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/ru/" aria-current="page">Главная</a>
+      <a href="/ru/tools.html">Все инструменты</a>
+      <a href="/ru/formats.html">Форматы</a>
+      <a href="/ru/viewer/stl-viewer.html">Просмотр</a>
+      <a href="/ru/mesh-tools.html">Инструменты меша</a>
+      <a href="/ru/3d-printing-tools.html">3D-печать</a>
+      <a href="/ru/about.html">О сайте</a>
+    </nav>
+    <a class="lang-toggle" href="/">EN</a>
+  </div>
+</header>
+
+<div class="page-hero"><div class="wrap">
+<h1>Инструменты для 3D-моделей, которые не видят ваши файлы</h1>
+<p>3DTools — браузерный набор инструментов для треугольных мешей: быстрый WebGL-просмотр, конвертеры форматов, ремонт и редактирование мешей, анализ для 3D-печати. Всё работает <strong>локально в вашем браузере</strong> — нет сервера, загрузок и аккаунтов. Ваши модели не покидают устройство.</p>
+<div class="wrap" style="padding-top:1.2rem"><a class="btn primary" href="/app.html">Открыть студию 3DTools</a> <span style="color:var(--text-dim);font-size:.9rem;margin-left:.6rem">Без регистрации. Перетащите файл и начинайте работать.</span></div>
+</div></div>
+<section class="content-block"><div class="wrap"><h2 id="tools">Что можно делать</h2>
+<div class="card-grid">
+  <a class="card" href="/viewer/stl-viewer.html"><span class="tag">Просмотр</span><h3>Просмотр основных форматов</h3><p>STL, OBJ, GLB/GLTF, PLY и 3MF — с режимами каркаса, рентгена, нормалей и вершин, измерениями и сечениями.</p></a>
+  <a class="card" href="/convert/stl-to-obj.html"><span class="tag">Конвертация</span><h3>Конвертация между форматами</h3><p>Восемь чётко определённых путей конвертации между пятью поддерживаемыми форматами, локально и с понятными ошибками.</p></a>
+  <a class="card" href="/mesh-tools.html"><span class="tag">Ремонт</span><h3>Ремонт и правка мешей</h3><p>Сварка дублей вершин, исправление обхода и вывернутых мешей, удаление вырожденных граней, децимация, полости, резка и разделение.</p></a>
+  <a class="card" href="/3d-printing-tools.html"><span class="tag">Печать</span><h3>Подготовка к 3D-печати</h3><p>Проверки замкнутости и водонепроницаемости, поиск нависаний, оценка толщины стенок, отчёт о пригодности к печати и ориентация.</p></a>
+</div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="how">Как это работает</h2>
+<p>3DTools — статический сайт. Всё приложение — парсеры всех форматов, алгоритмы мешей и WebGL-рендерер — это обычный JavaScript, который браузер загружает один раз. Открываемые файлы читаются через File API и парсятся в памяти; тяжёлые операции выполняются в <a href="https://developer.mozilla.org/ru/docs/Web/API/Web_Workers_API">Web Workers</a>, поэтому интерфейс не зависает. При конвертации результат собирается в памяти и передаётся менеджеру загрузок браузера. Данные модели никогда не передаются по сети.</p>
+<div class="callout"><strong>Никаких фальшивых кнопок.</strong> Каждый инструмент на сайте — реальная реализация с задокументированными ограничениями: где операция приближённая (например, оценка толщины стенок), интерфейс прямо об этом говорит.</div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="who">Для кого это</h2>
+<p><strong>Пользователи 3D-печати</strong> проверяют пригодность к печати, ремонтируют скачанные модели и конвертируют между STL, OBJ и 3MF. <strong>Разработчики</strong> инспектируют glTF-ассеты и проверяют данные мешей. <strong>Дизайнеры</strong> быстро просматривают файлы без установки полноценного CAD. Если нужен полный CAD (параметрические тела, булевы операции на NURBS, сборки с ограничениями) — 3DTools не про это: это набор инструментов для мешей, и он не претендует на большее.</p></div></section>
+<div class="wrap"><div class="ad-slot" aria-label="Advertisement"></div></div>
+<section class="content-block"><div class="wrap"><h2 id="faq">Часто задаваемые вопросы</h2><div class="faq"><details><summary>3DTools действительно бесплатный?</summary><p>Да. Нет системы аккаунтов, платных тарифов и серверных ограничений на файлы — потому что нет и сервера.</p></details>
+<details><summary>Где обрабатываются мои файлы?</summary><p>Полностью на вашем устройстве, в браузере. Сайт — статический хостинг; ничто из открытого никуда не передаётся.</p></details>
+<details><summary>Какие форматы поддерживаются?</summary><p>STL (бинарный + ASCII), OBJ, PLY (бинарный + ASCII, включая облака точек), GLB и GLTF 2.0, а также 3MF (базовая спецификация). Подробности и ограничения — на <a href="/formats.html">странице форматов</a>.</p></details>
+<details><summary>Работает ли офлайн?</summary><p>После загрузки страницы — да: при обработке моделей сетевых запросов не выполняется.</p></details>
+<details><summary>Какие требования к железу?</summary><p>Любая машина с браузером, поддерживающим WebGL. Большие меши обрабатываются в worker-потоке; очень большие файлы ограничены памятью устройства.</p></details></div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="related">Похожие инструменты</h2><div class="card-grid"><a class="card" href="/ru/viewer/stl-viewer.html"><span class="tag">Просмотр</span><h3>Просмотр STL</h3><p>Инспектируйте STL-файлы с каркасом, рентгеном и сечениями.</p></a><a class="card" href="/ru/mesh-tools.html"><span class="tag">Инструмент</span><h3>Инструменты меша</h3><p>Ремонт, децимация, полости, резка и объединение мешей.</p></a><a class="card" href="/ru/3d-printing-tools.html"><span class="tag">Инструмент</span><h3>Инструменты 3D-печати</h3><p>Анализ замкнутости, нависаний и пригодности к печати.</p></a><a class="card" href="/ru/formats.html"><span class="tag">Инструмент</span><h3>Поддерживаемые форматы</h3><p>Что содержит каждый формат и что с ним делает 3DTools.</p></a></div></div></section>
+<footer class="site-footer">
+  <div class="inner">
+    <div>
+      <h4>3DTools</h4>
+      <p style="color:var(--text-dim);font-size:.85rem;margin:0">Бесплатные браузерные инструменты для 3D-моделей. Вся обработка выполняется локально на вашем устройстве — без загрузок, аккаунтов и отслеживания файлов.</p>
+    </div>
+    <div>
+      <h4>Просмотр</h4>
+      <ul>
+        <li><a href="/ru/viewer/stl-viewer.html">Просмотр STL</a></li>
+        <li><a href="/ru/viewer/obj-viewer.html">Просмотр OBJ</a></li>
+        <li><a href="/ru/viewer/glb-gltf-viewer.html">Просмотр GLB/GLTF</a></li>
+        <li><a href="/ru/viewer/ply-viewer.html">Просмотр PLY</a></li>
+        <li><a href="/ru/viewer/3mf-viewer.html">Просмотр 3MF</a></li>
+        <li><a href="/ru/viewer/multi-model-viewer.html">Мульти-просмотр</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Конвертеры</h4>
+      <ul>
+        <li><a href="/ru/convert/stl-to-obj.html">STL в OBJ</a></li>
+        <li><a href="/ru/convert/obj-to-stl.html">OBJ в STL</a></li>
+        <li><a href="/ru/convert/stl-to-3mf.html">STL в 3MF</a></li>
+        <li><a href="/ru/convert/obj-to-glb.html">OBJ в GLB</a></li>
+        <li><a href="/ru/convert/glb-to-obj.html">GLB в OBJ</a></li>
+        <li><a href="/ru/convert/gltf-to-glb.html">GLTF в GLB</a></li>
+        <li><a href="/ru/convert/ply-to-obj.html">PLY в OBJ</a></li>
+        <li><a href="/ru/convert/3mf-to-stl.html">3MF в STL</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Инструменты</h4>
+      <ul>
+        <li><a href="/ru/mesh-tools.html">Ремонт и правка меша</a></li>
+        <li><a href="/ru/3d-printing-tools.html">Инструменты 3D-печати</a></li>
+        <li><a href="/app.html">Открыть студию</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Сайт</h4>
+      <ul>
+        <li><a href="/ru/about.html">О сайте</a></li>
+        <li><a href="/ru/contact.html">Контакты</a></li>
+        <li><a href="/ru/privacy.html">Политика конфиденциальности</a></li>
+        <li><a href="/ru/terms.html">Условия использования</a></li>
+        <li><a href="/ru/disclaimer.html">Отказ от ответственности</a></li>
+        <li><a href="/sitemap.xml">Карта сайта</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-note wrap">&copy; 2026 3DTools. 3DTools обрабатывает модели локально в вашем браузере и никогда не получает ваши файлы.</div>
+</footer>
+</body>
+</html>

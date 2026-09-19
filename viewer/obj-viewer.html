@@ -6,6 +6,9 @@
 <title>OBJ Viewer — Free Online OBJ Viewer (No Upload) | 3DTools</title>
 <meta name="description" content="Free browser-based OBJ Viewer. Open OBJ files instantly, inspect geometry, measure and convert — files are processed locally and never uploaded.">
 <link rel="canonical" href="/viewer/obj-viewer.html">
+<link rel="alternate" hreflang="en" href="https://3dtools.example/viewer/obj-viewer.html">
+<link rel="alternate" hreflang="ru" href="https://3dtools.example/ru/viewer/obj-viewer.html">
+<link rel="alternate" hreflang="x-default" href="https://3dtools.example/viewer/obj-viewer.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="3DTools">
 <meta property="og:title" content="OBJ Viewer — Free Online OBJ Viewer (No Upload) | 3DTools">
@@ -14,7 +17,7 @@
 <link rel="stylesheet" href="/assets/css/style.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f7cff' d='M12 2 3 7v10l9 5 9-5V7z'/%3E%3C/svg%3E">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"OBJ Viewer — 3DTools","url":"https://3dtools.example/viewer/obj-viewer.html","applicationCategory":"DesignApplication","operatingSystem":"Any (modern browser)","browserRequirements":"Requires WebGL","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free browser-based OBJ Viewer. Open OBJ files instantly, inspect geometry, measure and convert — files are processed locally and never uploaded."}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://3dtools.example/"},{"@type":"ListItem","position":2,"name":"Home","item":"https://3dtools.example/"},{"@type":"ListItem","position":3,"name":"Tools","item":"https://3dtools.example/tools.html"},{"@type":"ListItem","position":4,"name":"OBJ Viewer","item":"https://3dtools.example/viewer/obj-viewer.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://3dtools.example/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://3dtools.example/tools.html"},{"@type":"ListItem","position":3,"name":"OBJ Viewer","item":"https://3dtools.example/viewer/obj-viewer.html"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do I need the .mtl file to view an OBJ?","acceptedAnswer":{"@type":"Answer","text":"No. The viewer only needs the .obj file. Materials are not rendered; geometry, normals and UVs are."}},{"@type":"Question","name":"Does it support quads and n-gons?","acceptedAnswer":{"@type":"Answer","text":"OBJ faces with more than three vertices are automatically fan-triangulated so they render correctly."}},{"@type":"Question","name":"Can I view several objects in one OBJ?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every <code>o</code>/<code>g</code> object becomes its own tab in the viewer; you can hide, transform or export them separately."}},{"@type":"Question","name":"Can I convert the OBJ to STL for printing?","acceptedAnswer":{"@type":"Answer","text":"Yes — open the Convert tab and choose STL. For best results run the manifold check first."}}]}</script>
 </head>
 <body>
@@ -30,10 +33,10 @@
       <a href="/3d-printing-tools.html">3D Printing</a>
       <a href="/about.html">About</a>
     </nav>
-    <button class="lang-toggle" type="button" aria-label="Переключить на русский">RU</button>
+    <a class="lang-toggle" href="/ru/viewer/obj-viewer.html">RU</a>
   </div>
 </header>
-<nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/">Home</a> &rsaquo; <a href="/tools.html">Tools</a> &rsaquo; <a href="/viewer/obj-viewer.html">OBJ Viewer</a></nav>
+<nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/tools.html">Tools</a> &rsaquo; <a href="/viewer/obj-viewer.html">OBJ Viewer</a></nav>
 <div class="page-hero"><div class="wrap">
 <h1>OBJ Viewer</h1>
 <p>View Wavefront OBJ files in your browser. OBJ is the classic interchange format for polygon modeling: it supports multiple named objects, groups, materials references, normals and texture coordinates.</p><p>Everything runs locally in your browser using WebGL. Your file is never uploaded to a server, and the viewer works with files of many megabytes. If a file cannot be parsed, you get a clear error message instead of a silently blank screen.</p>
@@ -119,6 +122,5 @@
   </div>
   <div class="footer-note wrap">&copy; 2026 3DTools. 3DTools processes models locally in your browser and never receives your files.</div>
 </footer>
-<script src="/assets/js/i18n.js" defer></script>
 </body>
 </html>

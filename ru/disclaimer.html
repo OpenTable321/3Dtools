@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Отказ от ответственности — точность и ограничения 3DTools</title>
+<meta name="description" content="Честные ограничения 3DTools: какие операции с мешами точные, какие приближённые и почему результаты стоит проверять перед производством.">
+<link rel="canonical" href="/ru/disclaimer.html">
+<link rel="alternate" hreflang="en" href="https://3dtools.example/disclaimer.html">
+<link rel="alternate" hreflang="ru" href="https://3dtools.example/ru/disclaimer.html">
+<link rel="alternate" hreflang="x-default" href="https://3dtools.example/disclaimer.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="3DTools">
+<meta property="og:title" content="Отказ от ответственности — точность и ограничения 3DTools">
+<meta property="og:description" content="Честные ограничения 3DTools: какие операции с мешами точные, какие приближённые и почему результаты стоит проверять перед производством.">
+<meta property="og:url" content="https://3dtools.example/ru/disclaimer.html">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f7cff' d='M12 2 3 7v10l9 5 9-5V7z'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Отказ от ответственности — точность и ограничения 3DTools","url":"https://3dtools.example/ru/disclaimer.html","applicationCategory":"DesignApplication","operatingSystem":"Any (modern browser)","browserRequirements":"Requires WebGL","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Честные ограничения 3DTools: какие операции с мешами точные, какие приближённые и почему результаты стоит проверять перед производством."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Можно ли доверять проверке пригодности?","acceptedAnswer":{"@type":"Answer","text":"Она точно проверяет перечисленные геометрические критерии и помечает приближения как таковые — но никакое ПО не гарантирует успешную печать."}},{"@type":"Question","name":"Идентична ли конвертированная геометрия?","acceptedAnswer":{"@type":"Answer","text":"Геометрия — да; атрибуты, которые целевой формат не может представить (цвета в STL, материалы везде), конвертацию не переживают."}}]}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="/ru/"><span class="cube"></span>3DTools</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/ru/">Главная</a>
+      <a href="/ru/tools.html">Все инструменты</a>
+      <a href="/ru/formats.html">Форматы</a>
+      <a href="/ru/viewer/stl-viewer.html">Просмотр</a>
+      <a href="/ru/mesh-tools.html">Инструменты меша</a>
+      <a href="/ru/3d-printing-tools.html">3D-печать</a>
+      <a href="/ru/about.html">О сайте</a>
+    </nav>
+    <a class="lang-toggle" href="/disclaimer.html">EN</a>
+  </div>
+</header>
+
+<div class="page-hero"><div class="wrap">
+<h1>Отказ от ответственности</h1>
+<p>3DTools выполняет настоящие вычисления с мешами, но у каждого инструмента есть пределы. Эта страница прямо их описывает, чтобы вы могли оценивать результаты.</p>
+
+</div></div>
+<section class="content-block"><div class="wrap"><h2 id="exact">Что точно</h2><ul>
+<li>Парсинг и конвертация геометрии мешей (вершины, треугольники, нормали, UV там, где целевой формат их поддерживает).</li>
+<li>Объём и площадь поверхности (точно для замкнутых мешей), габаритные боксы, количество треугольников/вершин.</li>
+<li>Топологические проверки замкнутости/водонепроницаемости (граничные, немногообразные рёбра и вершины).</li>
+<li>Классификация углов нависания по граням.</li>
+</ul></div></section>
+<section class="content-block"><div class="wrap"><h2 id="approx">Что приближённо</h2><ul>
+<li><strong>Толщина стенок</strong> — оценка сэмплированием лучей; может локально завышать/занижать на вогнутой геометрии.</li>
+<li><strong>Полая оболочка</strong> — смещение внутрь по нормалям; самопересекается там, где модель тоньше ~2× стенки.</li>
+<li><strong>Авто-ориентация</strong> — поворачивает доминирующее направление нормали грани вниз; не оптимизированная по устойчивости укладка.</li>
+<li><strong>Добавить основание</strong> — прямоугольная пластина под контуром, а не конформный рафт.</li>
+<li><strong>Децимация</strong> — по определению с потерями; квадратичная ошибка минимизируется, но не устраняется.</li>
+</ul></div></section>
+<section class="content-block"><div class="wrap"><h2 id="responsibility">Ваша ответственность</h2><p>Проверяйте результаты (проверка замкнутости, визуальный осмотр, сечения) перед печатью, обработкой или отправкой чего-либо на их основе. 3DTools — не сертифицированное инженерное ПО. Ничто здесь не является профессиональной консультацией.</p></div></section>
+<div class="wrap"><div class="ad-slot" aria-label="Advertisement"></div></div>
+<section class="content-block"><div class="wrap"><h2 id="faq">Часто задаваемые вопросы</h2><div class="faq"><details><summary>Можно ли доверять проверке пригодности?</summary><p>Она точно проверяет перечисленные геометрические критерии и помечает приближения как таковые — но никакое ПО не гарантирует успешную печать.</p></details>
+<details><summary>Идентична ли конвертированная геометрия?</summary><p>Геометрия — да; атрибуты, которые целевой формат не может представить (цвета в STL, материалы везде), конвертацию не переживают.</p></details></div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="related">Похожие инструменты</h2><div class="card-grid"><a class="card" href="/ru/3d-printing-tools.html"><span class="tag">Инструмент</span><h3>Инструменты 3D-печати</h3><p>Что вычисляют проверки.</p></a><a class="card" href="/ru/mesh-tools.html"><span class="tag">Инструмент</span><h3>Инструменты меша</h3><p>Подробности операций.</p></a><a class="card" href="/ru/terms.html"><span class="tag">Инструмент</span><h3>Условия</h3><p>Условия использования.</p></a><a class="card" href="/ru/contact.html"><span class="tag">Инструмент</span><h3>Контакты</h3><p>Сообщить о проблеме.</p></a></div></div></section>
+<footer class="site-footer">
+  <div class="inner">
+    <div>
+      <h4>3DTools</h4>
+      <p style="color:var(--text-dim);font-size:.85rem;margin:0">Бесплатные браузерные инструменты для 3D-моделей. Вся обработка выполняется локально на вашем устройстве — без загрузок, аккаунтов и отслеживания файлов.</p>
+    </div>
+    <div>
+      <h4>Просмотр</h4>
+      <ul>
+        <li><a href="/ru/viewer/stl-viewer.html">Просмотр STL</a></li>
+        <li><a href="/ru/viewer/obj-viewer.html">Просмотр OBJ</a></li>
+        <li><a href="/ru/viewer/glb-gltf-viewer.html">Просмотр GLB/GLTF</a></li>
+        <li><a href="/ru/viewer/ply-viewer.html">Просмотр PLY</a></li>
+        <li><a href="/ru/viewer/3mf-viewer.html">Просмотр 3MF</a></li>
+        <li><a href="/ru/viewer/multi-model-viewer.html">Мульти-просмотр</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Конвертеры</h4>
+      <ul>
+        <li><a href="/ru/convert/stl-to-obj.html">STL в OBJ</a></li>
+        <li><a href="/ru/convert/obj-to-stl.html">OBJ в STL</a></li>
+        <li><a href="/ru/convert/stl-to-3mf.html">STL в 3MF</a></li>
+        <li><a href="/ru/convert/obj-to-glb.html">OBJ в GLB</a></li>
+        <li><a href="/ru/convert/glb-to-obj.html">GLB в OBJ</a></li>
+        <li><a href="/ru/convert/gltf-to-glb.html">GLTF в GLB</a></li>
+        <li><a href="/ru/convert/ply-to-obj.html">PLY в OBJ</a></li>
+        <li><a href="/ru/convert/3mf-to-stl.html">3MF в STL</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Инструменты</h4>
+      <ul>
+        <li><a href="/ru/mesh-tools.html">Ремонт и правка меша</a></li>
+        <li><a href="/ru/3d-printing-tools.html">Инструменты 3D-печати</a></li>
+        <li><a href="/app.html">Открыть студию</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Сайт</h4>
+      <ul>
+        <li><a href="/ru/about.html">О сайте</a></li>
+        <li><a href="/ru/contact.html">Контакты</a></li>
+        <li><a href="/ru/privacy.html">Политика конфиденциальности</a></li>
+        <li><a href="/ru/terms.html">Условия использования</a></li>
+        <li><a href="/ru/disclaimer.html">Отказ от ответственности</a></li>
+        <li><a href="/sitemap.xml">Карта сайта</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-note wrap">&copy; 2026 3DTools. 3DTools обрабатывает модели локально в вашем браузере и никогда не получает ваши файлы.</div>
+</footer>
+</body>
+</html>

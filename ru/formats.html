@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Поддерживаемые форматы 3D-файлов — STL, OBJ, GLB/GLTF, PLY, 3MF | 3DTools</title>
+<meta name="description" content="Что 3DTools читает и пишет: STL, OBJ, PLY, glTF 2.0 (GLB/GLTF) и 3MF — возможности, варианты и честные ограничения каждого формата.">
+<link rel="canonical" href="/ru/formats.html">
+<link rel="alternate" hreflang="en" href="https://3dtools.example/formats.html">
+<link rel="alternate" hreflang="ru" href="https://3dtools.example/ru/formats.html">
+<link rel="alternate" hreflang="x-default" href="https://3dtools.example/formats.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="3DTools">
+<meta property="og:title" content="Поддерживаемые форматы 3D-файлов — STL, OBJ, GLB/GLTF, PLY, 3MF | 3DTools">
+<meta property="og:description" content="Что 3DTools читает и пишет: STL, OBJ, PLY, glTF 2.0 (GLB/GLTF) и 3MF — возможности, варианты и честные ограничения каждого формата.">
+<meta property="og:url" content="https://3dtools.example/ru/formats.html">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f7cff' d='M12 2 3 7v10l9 5 9-5V7z'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Поддерживаемые форматы 3D-файлов — STL, OBJ, GLB/GLTF, PLY, 3MF | 3DTools","url":"https://3dtools.example/ru/formats.html","applicationCategory":"DesignApplication","operatingSystem":"Any (modern browser)","browserRequirements":"Requires WebGL","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Что 3DTools читает и пишет: STL, OBJ, PLY, glTF 2.0 (GLB/GLTF) и 3MF — возможности, варианты и честные ограничения каждого формата."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Можете добавить формат X?","acceptedAnswer":{"@type":"Answer","text":"Форматы добавляются только если их можно полностью реализовать на стороне клиента и они вписываются в конвейер мешей. На <a href=\"/contact.html\">странице контактов</a> указано, как предложить формат."}},{"@type":"Question","name":"Почему нет поддержки STEP?","acceptedAnswer":{"@type":"Answer","text":"STEP — CAD-формат (BREP), требующий полноценного геометрического ядра; честная конвертация означает встраивание мегабайт WASM-кода CAD. Вместо имитации 3DTools остаётся набором инструментов для мешей."}},{"@type":"Question","name":"Какой формат использовать для 3D-печати?","acceptedAnswer":{"@type":"Answer","text":"3MF, если ваш слайсер его поддерживает (единицы, несколько объектов), иначе STL. OBJ тоже работает, но ничего не добавляет для печати."}}]}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="/ru/"><span class="cube"></span>3DTools</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/ru/">Главная</a>
+      <a href="/ru/tools.html">Все инструменты</a>
+      <a href="/ru/formats.html" aria-current="page">Форматы</a>
+      <a href="/ru/viewer/stl-viewer.html">Просмотр</a>
+      <a href="/ru/mesh-tools.html">Инструменты меша</a>
+      <a href="/ru/3d-printing-tools.html">3D-печать</a>
+      <a href="/ru/about.html">О сайте</a>
+    </nav>
+    <a class="lang-toggle" href="/formats.html">EN</a>
+  </div>
+</header>
+
+<div class="page-hero"><div class="wrap">
+<h1>Поддерживаемые форматы</h1>
+<p>3DTools сознательно поддерживает небольшой набор форматов — глубоко и честно — вместо заявлений о чтении всего подряд. Ниже точно указано, что парсится, что записывается и что каждый формат может и не может содержать.</p>
+<div class="wrap" style="padding-top:1.2rem"><a class="btn primary" href="/app.html">Попробовать с вашим файлом</a> <span style="color:var(--text-dim);font-size:.9rem;margin-left:.6rem">Работает локально в вашем браузере — файл не покидает ваше устройство.</span></div>
+</div></div>
+<section class="content-block"><div class="wrap"><h2 id="table">Обзор</h2>
+<table class="data">
+<tr><th>Формат</th><th>Чтение</th><th>Запись</th><th>Варианты</th><th>Объекты</th><th>Нормали/UV</th></tr>
+<tr><td><a href="/viewer/stl-viewer.html">STL</a></td><td>Да</td><td>Бинарный + ASCII</td><td>Бинарный, ASCII</td><td>Одно тело</td><td>Только нормали</td></tr>
+<tr><td><a href="/viewer/obj-viewer.html">OBJ</a></td><td>Да</td><td>Да</td><td>Текст</td><td>Группы o/g</td><td>Оба</td></tr>
+<tr><td><a href="/viewer/ply-viewer.html">PLY</a></td><td>Да</td><td>Бинарный + ASCII</td><td>ASCII, binary LE/BE</td><td>Один меш</td><td>Оба + цвета</td></tr>
+<tr><td><a href="/viewer/glb-gltf-viewer.html">GLB/GLTF</a></td><td>Да</td><td>Оба</td><td>glTF 2.0</td><td>Несколько</td><td>Оба</td></tr>
+<tr><td><a href="/viewer/3mf-viewer.html">3MF</a></td><td>Да</td><td>Да</td><td>Базовая спецификация</td><td>Несколько + трансформации</td><td>Только треугольники</td></tr>
+</table></div></section>
+<section class="content-block"><div class="wrap"><h2 id="stl">STL</h2>
+<p>Классика 3D-печати: список треугольников с нормалями граней — и больше ничего. Ни единиц, ни цветов, ни имён объектов. Бинарный STL упаковывает каждый треугольник ровно в 50 байт; ASCII STL записывает те же данные текстом и примерно в пять раз больше. 3DTools автоматически определяет вариант, терпимо относится к обрезанным файлам (обрезает до реально присутствующих треугольников) и пересчитывает ASCII-нормали (которые печально ненадёжны) из геометрии.</p></div></section>
+<section class="content-block"><div class="wrap"><h2 id="obj">OBJ</h2>
+<p>Wavefront OBJ — простой человекочитаемый текстовый формат для полигональных мешей. Грани могут независимо ссылаться на вершины, текстурные координаты и нормали (включая отрицательные индексы), а файлы могут содержать несколько объектов и групп материалов. 3DTools триангулирует n-угольники, создаёт отдельную модель для каждого объекта/группы материалов и сохраняет нормали и UV. Библиотеки материалов (.mtl) для просмотра не требуются и при экспорте не записываются.</p></div></section>
+<section class="content-block"><div class="wrap"><h2 id="ply">PLY</h2><p>Stanford PLY описывает вершины и грани гибкой схемой свойств, объявленной в заголовке — поэтому это стандарт для вывода 3D-сканеров. 3DTools читает все три кодировки (ASCII, binary little-endian, binary big-endian) с любым стандартным скалярным типом, обрабатывает списочные свойства граней, сохраняет цвета вершин и отображает файлы без граней (облака точек) как точки.</p></div></section>
+<section class="content-block"><div class="wrap"><h2 id="gltf">GLB / GLTF</h2><p>glTF 2.0 — «JPEG для 3D»: рантайм-формат для веба. Файл .glb упаковывает JSON и бинарные данные в один чанковый контейнер; файл .gltf — это JSON плюс внешние .bin-буферы. 3DTools парсит оба, применяет трансформации узлов (translation/rotation/scale/matrix), читает аксессоры POSITION, NORMAL, TEXCOORD_0, COLOR_0 и индексы со всеми стандартными типами компонентов и отклоняет Draco/meshopt-сжатые ассеты с понятной ошибкой. Экспорт — соответствующий спецификации glTF 2.0 с корректным выравниванием буферов.</p></div></section>
+<section class="content-block"><div class="wrap"><h2 id="3mf">3MF</h2><p>3MF — это ZIP-пакет (OPC) с XML-моделью меша, разработанный консорциумом 3MF для исправления недостатков STL: явные единицы, несколько именованных объектов, трансформации сборки и точки расширения. 3DTools читает и пишет базовую спецификацию (объекты, компоненты, элементы сборки, трансформации), распаковывая контейнеры локально через API декомпрессии браузера.</p></div></section>
+<section class="content-block"><div class="wrap"><h2 id="not">Что сознательно не поддерживается</h2>
+<ul>
+<li><strong>F3D, STEP, IGES, 3DS, FBX, X3D, DAE, USDZ:</strong> это CAD-форматы или форматы графов сцен вне области инструментов для мешей. 3DTools не заявляет поддержку CAD.</li>
+<li><strong>glTF со сжатием Draco / meshopt:</strong> отклоняется с поясняющей ошибкой вместо пустого экрана.</li>
+<li><strong>Текстуры и PBR-материалы:</strong> конвейер ориентирован на геометрию; материалы сохраняются только как имена там, где формат это поддерживает.</li>
+</ul></div></section>
+<div class="wrap"><div class="ad-slot" aria-label="Advertisement"></div></div>
+<section class="content-block"><div class="wrap"><h2 id="faq">Часто задаваемые вопросы</h2><div class="faq"><details><summary>Можете добавить формат X?</summary><p>Форматы добавляются только если их можно полностью реализовать на стороне клиента и они вписываются в конвейер мешей. На <a href="/contact.html">странице контактов</a> указано, как предложить формат.</p></details>
+<details><summary>Почему нет поддержки STEP?</summary><p>STEP — CAD-формат (BREP), требующий полноценного геометрического ядра; честная конвертация означает встраивание мегабайт WASM-кода CAD. Вместо имитации 3DTools остаётся набором инструментов для мешей.</p></details>
+<details><summary>Какой формат использовать для 3D-печати?</summary><p>3MF, если ваш слайсер его поддерживает (единицы, несколько объектов), иначе STL. OBJ тоже работает, но ничего не добавляет для печати.</p></details></div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="related">Похожие инструменты</h2><div class="card-grid"><a class="card" href="/ru/tools.html"><span class="tag">Инструмент</span><h3>Все инструменты</h3><p>Все средства просмотра и конвертации.</p></a><a class="card" href="/ru/viewer/stl-viewer.html"><span class="tag">Просмотр</span><h3>Просмотр STL</h3><p>Начните с самого распространённого формата.</p></a><a class="card" href="/ru/convert/gltf-to-glb.html"><span class="tag">Конвертер</span><h3>GLTF в GLB</h3><p>Популярный инструмент упаковки glTF.</p></a><a class="card" href="/ru/3d-printing-tools.html"><span class="tag">Инструмент</span><h3>Инструменты 3D-печати</h3><p>Анализ для печатаемых деталей.</p></a></div></div></section>
+<footer class="site-footer">
+  <div class="inner">
+    <div>
+      <h4>3DTools</h4>
+      <p style="color:var(--text-dim);font-size:.85rem;margin:0">Бесплатные браузерные инструменты для 3D-моделей. Вся обработка выполняется локально на вашем устройстве — без загрузок, аккаунтов и отслеживания файлов.</p>
+    </div>
+    <div>
+      <h4>Просмотр</h4>
+      <ul>
+        <li><a href="/ru/viewer/stl-viewer.html">Просмотр STL</a></li>
+        <li><a href="/ru/viewer/obj-viewer.html">Просмотр OBJ</a></li>
+        <li><a href="/ru/viewer/glb-gltf-viewer.html">Просмотр GLB/GLTF</a></li>
+        <li><a href="/ru/viewer/ply-viewer.html">Просмотр PLY</a></li>
+        <li><a href="/ru/viewer/3mf-viewer.html">Просмотр 3MF</a></li>
+        <li><a href="/ru/viewer/multi-model-viewer.html">Мульти-просмотр</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Конвертеры</h4>
+      <ul>
+        <li><a href="/ru/convert/stl-to-obj.html">STL в OBJ</a></li>
+        <li><a href="/ru/convert/obj-to-stl.html">OBJ в STL</a></li>
+        <li><a href="/ru/convert/stl-to-3mf.html">STL в 3MF</a></li>
+        <li><a href="/ru/convert/obj-to-glb.html">OBJ в GLB</a></li>
+        <li><a href="/ru/convert/glb-to-obj.html">GLB в OBJ</a></li>
+        <li><a href="/ru/convert/gltf-to-glb.html">GLTF в GLB</a></li>
+        <li><a href="/ru/convert/ply-to-obj.html">PLY в OBJ</a></li>
+        <li><a href="/ru/convert/3mf-to-stl.html">3MF в STL</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Инструменты</h4>
+      <ul>
+        <li><a href="/ru/mesh-tools.html">Ремонт и правка меша</a></li>
+        <li><a href="/ru/3d-printing-tools.html">Инструменты 3D-печати</a></li>
+        <li><a href="/app.html">Открыть студию</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Сайт</h4>
+      <ul>
+        <li><a href="/ru/about.html">О сайте</a></li>
+        <li><a href="/ru/contact.html">Контакты</a></li>
+        <li><a href="/ru/privacy.html">Политика конфиденциальности</a></li>
+        <li><a href="/ru/terms.html">Условия использования</a></li>
+        <li><a href="/ru/disclaimer.html">Отказ от ответственности</a></li>
+        <li><a href="/sitemap.xml">Карта сайта</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-note wrap">&copy; 2026 3DTools. 3DTools обрабатывает модели локально в вашем браузере и никогда не получает ваши файлы.</div>
+</footer>
+</body>
+</html>

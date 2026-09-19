@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Просмотр OBJ — бесплатный онлайн-просмотр (без загрузки) | 3DTools</title>
+<meta name="description" content="Бесплатный браузерный просмотр: Просмотр OBJ. Открывайте файлы OBJ мгновенно, инспектируйте геометрию, измеряйте и конвертируйте — файлы обрабатываются локально и не загружаются.">
+<link rel="canonical" href="/ru/viewer/obj-viewer.html">
+<link rel="alternate" hreflang="en" href="https://3dtools.example/viewer/obj-viewer.html">
+<link rel="alternate" hreflang="ru" href="https://3dtools.example/ru/viewer/obj-viewer.html">
+<link rel="alternate" hreflang="x-default" href="https://3dtools.example/viewer/obj-viewer.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="3DTools">
+<meta property="og:title" content="Просмотр OBJ — бесплатный онлайн-просмотр (без загрузки) | 3DTools">
+<meta property="og:description" content="Бесплатный браузерный просмотр: Просмотр OBJ. Открывайте файлы OBJ мгновенно, инспектируйте геометрию, измеряйте и конвертируйте — файлы обрабатываются локально и не загружаются.">
+<meta property="og:url" content="https://3dtools.example/ru/viewer/obj-viewer.html">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f7cff' d='M12 2 3 7v10l9 5 9-5V7z'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Просмотр OBJ — 3DTools","url":"https://3dtools.example/ru/viewer/obj-viewer.html","applicationCategory":"DesignApplication","operatingSystem":"Any (modern browser)","browserRequirements":"Requires WebGL","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Бесплатный браузерный просмотр: Просмотр OBJ. Открывайте файлы OBJ мгновенно, инспектируйте геометрию, измеряйте и конвертируйте — файлы обрабатываются локально и не загружаются."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://3dtools.example/ru/"},{"@type":"ListItem","position":2,"name":"Инструменты","item":"https://3dtools.example/ru/tools.html"},{"@type":"ListItem","position":3,"name":"Просмотр OBJ","item":"https://3dtools.example/ru/viewer/obj-viewer.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Нужен ли файл .mtl для просмотра OBJ?","acceptedAnswer":{"@type":"Answer","text":"Нет. Достаточно файла .obj. Материалы не рендерятся; геометрия, нормали и UV — да."}},{"@type":"Question","name":"Поддерживаются ли квады и n-угольники?","acceptedAnswer":{"@type":"Answer","text":"Грани OBJ с более чем тремя вершинами автоматически триангулируются веером и отображаются корректно."}},{"@type":"Question","name":"Можно ли просмотреть несколько объектов в одном OBJ?","acceptedAnswer":{"@type":"Answer","text":"Да. Каждый объект <code>o</code>/<code>g</code> получает свою вкладку; их можно скрывать, трансформировать или экспортировать отдельно."}},{"@type":"Question","name":"Можно ли конвертировать OBJ в STL для печати?","acceptedAnswer":{"@type":"Answer","text":"Да — откройте вкладку «Конвертация» и выберите STL. Для лучшего результата сначала запустите проверку замкнутости."}}]}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="/ru/"><span class="cube"></span>3DTools</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/ru/">Главная</a>
+      <a href="/ru/tools.html">Все инструменты</a>
+      <a href="/ru/formats.html">Форматы</a>
+      <a href="/ru/viewer/stl-viewer.html">Просмотр</a>
+      <a href="/ru/mesh-tools.html">Инструменты меша</a>
+      <a href="/ru/3d-printing-tools.html">3D-печать</a>
+      <a href="/ru/about.html">О сайте</a>
+    </nav>
+    <a class="lang-toggle" href="/viewer/obj-viewer.html">EN</a>
+  </div>
+</header>
+<nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/ru/">Главная</a> &rsaquo; <a href="/ru/tools.html">Инструменты</a> &rsaquo; <a href="/ru/viewer/obj-viewer.html">Просмотр OBJ</a></nav>
+<div class="page-hero"><div class="wrap">
+<h1>Просмотр OBJ</h1>
+<p>Просматривайте файлы Wavefront OBJ в браузере. OBJ — классический формат обмена для полигонального моделирования: поддерживает несколько именованных объектов, группы, ссылки на материалы, нормали и текстурные координаты.</p><p>Всё работает локально в вашем браузере через WebGL. Файл никогда не загружается на сервер, просмотр работает с файлами в десятки мегабайт. Если файл не парсится, вы получите понятное сообщение об ошибке вместо пустого экрана.</p>
+<div class="wrap" style="padding-top:1.2rem"><a class="btn primary" href="/app.html?tool=obj-viewer">Открыть: Просмотр OBJ</a> <span style="color:var(--text-dim);font-size:.9rem;margin-left:.6rem">Работает локально в вашем браузере — файл не покидает ваше устройство.</span></div>
+</div></div>
+<section class="content-block"><div class="wrap"><h2 id="how">Как просмотреть файл OBJ</h2>
+<ol>
+<li>Нажмите <strong>Открыть: Просмотр OBJ</strong> выше (или откройте <a href="/app.html">студию 3DTools</a>).</li>
+<li>Перетащите файл во вьюпорт или нажмите <strong>Открыть файл(ы)</strong>.</li>
+<li>Вращайте левой кнопкой мыши, масштабируйте колесом, двигайте правой кнопкой.</li>
+<li>Переключайте режимы отображения (сплошной, каркас, рентген, нормали, вершины) на вкладке <strong>Вид</strong>.</li>
+<li>Измеряйте, режьте или анализируйте модель на вкладке <strong>Анализ</strong> — или конвертируйте на вкладке <strong>Конвертация</strong>.</li>
+</ol>
+<p>При загрузке OBJ каждый объект или группа материалов становится отдельной вкладкой модели — их можно переключать, трансформировать и экспортировать по отдельности. Полигоны с более чем тремя вершинами (квады, n-угольники) триангулируются при загрузке. Файлы материалов (.mtl) для просмотра не нужны — геометрия рендерится с нейтральным студийным материалом.</p></div></section>
+<section class="content-block"><div class="wrap"><h2 id="formats">Что поддерживается</h2>
+<table class="data">
+<tr><th>Возможность</th><th>Поддержка</th></tr>
+<tr><td>Бинарный и ASCII варианты</td><td>Да</td></tr>
+<tr><td>Сплошной рендеринг</td><td>Да (WebGL, аппаратное ускорение)</td></tr>
+<tr><td>Каркас / Рентген / нормали / вершины</td><td>Да</td></tr>
+<tr><td>Несколько объектов в файле</td><td>Да — каждый становится отдельной вкладкой</td></tr>
+<tr><td>Текстуры и материалы</td><td>Показывается геометрия; текстуры не рендерятся</td></tr>
+<tr><td>Сжатие Draco / meshopt</td><td>Не поддерживается (отклоняется с понятной ошибкой)</td></tr>
+<tr><td>Размер файла</td><td>Ограничен памятью устройства; тяжёлая обработка — в Web Worker</td></tr>
+</table></div></section>
+<section class="content-block"><div class="wrap"><h2 id="privacy">Приватность по архитектуре</h2>
+<p>У этого просмотра вообще нет эндпоинта загрузки. Файл читается через <code>FileReader</code> браузера, парсится в JavaScript и рендерится через WebGL — всё на вашей машине. После загрузки работает и офлайн. Подробности — в <a href="/privacy.html">политике конфиденциальности</a>.</p></div></section>
+<div class="wrap"><div class="ad-slot" aria-label="Advertisement"></div></div>
+<section class="content-block"><div class="wrap"><h2 id="faq">Часто задаваемые вопросы</h2><div class="faq"><details><summary>Нужен ли файл .mtl для просмотра OBJ?</summary><p>Нет. Достаточно файла .obj. Материалы не рендерятся; геометрия, нормали и UV — да.</p></details>
+<details><summary>Поддерживаются ли квады и n-угольники?</summary><p>Грани OBJ с более чем тремя вершинами автоматически триангулируются веером и отображаются корректно.</p></details>
+<details><summary>Можно ли просмотреть несколько объектов в одном OBJ?</summary><p>Да. Каждый объект <code>o</code>/<code>g</code> получает свою вкладку; их можно скрывать, трансформировать или экспортировать отдельно.</p></details>
+<details><summary>Можно ли конвертировать OBJ в STL для печати?</summary><p>Да — откройте вкладку «Конвертация» и выберите STL. Для лучшего результата сначала запустите проверку замкнутости.</p></details></div></div></section>
+<section class="content-block"><div class="wrap"><h2 id="related">Похожие инструменты</h2><div class="card-grid"><a class="card" href="/ru/viewer/stl-viewer.html"><span class="tag">Просмотр</span><h3>Просмотр STL</h3><p>Инспектируйте бинарный и ASCII STL с каркасом, рентгеном и сечениями.</p></a><a class="card" href="/ru/viewer/glb-gltf-viewer.html"><span class="tag">Просмотр</span><h3>Просмотр GLB/GLTF</h3><p>Загрузка ассетов glTF 2.0 и локальная инспекция мешей.</p></a><a class="card" href="/ru/viewer/ply-viewer.html"><span class="tag">Просмотр</span><h3>Просмотр PLY</h3><p>Просмотр ASCII и бинарных PLY, включая облака точек.</p></a><a class="card" href="/ru/convert/stl-to-obj.html"><span class="tag">Конвертер</span><h3>Конвертер STL в OBJ</h3><p>Превращает STL из треугольников в OBJ с вершинами, нормалями и группами.</p></a></div></div></section>
+<footer class="site-footer">
+  <div class="inner">
+    <div>
+      <h4>3DTools</h4>
+      <p style="color:var(--text-dim);font-size:.85rem;margin:0">Бесплатные браузерные инструменты для 3D-моделей. Вся обработка выполняется локально на вашем устройстве — без загрузок, аккаунтов и отслеживания файлов.</p>
+    </div>
+    <div>
+      <h4>Просмотр</h4>
+      <ul>
+        <li><a href="/ru/viewer/stl-viewer.html">Просмотр STL</a></li>
+        <li><a href="/ru/viewer/obj-viewer.html">Просмотр OBJ</a></li>
+        <li><a href="/ru/viewer/glb-gltf-viewer.html">Просмотр GLB/GLTF</a></li>
+        <li><a href="/ru/viewer/ply-viewer.html">Просмотр PLY</a></li>
+        <li><a href="/ru/viewer/3mf-viewer.html">Просмотр 3MF</a></li>
+        <li><a href="/ru/viewer/multi-model-viewer.html">Мульти-просмотр</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Конвертеры</h4>
+      <ul>
+        <li><a href="/ru/convert/stl-to-obj.html">STL в OBJ</a></li>
+        <li><a href="/ru/convert/obj-to-stl.html">OBJ в STL</a></li>
+        <li><a href="/ru/convert/stl-to-3mf.html">STL в 3MF</a></li>
+        <li><a href="/ru/convert/obj-to-glb.html">OBJ в GLB</a></li>
+        <li><a href="/ru/convert/glb-to-obj.html">GLB в OBJ</a></li>
+        <li><a href="/ru/convert/gltf-to-glb.html">GLTF в GLB</a></li>
+        <li><a href="/ru/convert/ply-to-obj.html">PLY в OBJ</a></li>
+        <li><a href="/ru/convert/3mf-to-stl.html">3MF в STL</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Инструменты</h4>
+      <ul>
+        <li><a href="/ru/mesh-tools.html">Ремонт и правка меша</a></li>
+        <li><a href="/ru/3d-printing-tools.html">Инструменты 3D-печати</a></li>
+        <li><a href="/app.html">Открыть студию</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Сайт</h4>
+      <ul>
+        <li><a href="/ru/about.html">О сайте</a></li>
+        <li><a href="/ru/contact.html">Контакты</a></li>
+        <li><a href="/ru/privacy.html">Политика конфиденциальности</a></li>
+        <li><a href="/ru/terms.html">Условия использования</a></li>
+        <li><a href="/ru/disclaimer.html">Отказ от ответственности</a></li>
+        <li><a href="/sitemap.xml">Карта сайта</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-note wrap">&copy; 2026 3DTools. 3DTools обрабатывает модели локально в вашем браузере и никогда не получает ваши файлы.</div>
+</footer>
+</body>
+</html>
