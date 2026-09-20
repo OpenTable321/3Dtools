@@ -7,17 +7,17 @@
 <title>3D Printing Analysis Tools — Printability, Manifold, Overhangs | 3DTools</title>
 <meta name="description" content="Free local 3D-printing checks: watertight/manifold verification, overhang detection, wall thickness estimation, volume, printability report, orientation and cross sections.">
 <link rel="canonical" href="/3d-printing-tools.html">
-<link rel="alternate" hreflang="en" href="https://3dtools.example/3d-printing-tools.html">
-<link rel="alternate" hreflang="ru" href="https://3dtools.example/ru/3d-printing-tools.html">
-<link rel="alternate" hreflang="x-default" href="https://3dtools.example/3d-printing-tools.html">
+<link rel="alternate" hreflang="en" href="https://3-dtools.vercel.app/3d-printing-tools.html">
+<link rel="alternate" hreflang="ru" href="https://3-dtools.vercel.app/ru/3d-printing-tools.html">
+<link rel="alternate" hreflang="x-default" href="https://3-dtools.vercel.app/3d-printing-tools.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="3DTools">
 <meta property="og:title" content="3D Printing Analysis Tools — Printability, Manifold, Overhangs | 3DTools">
 <meta property="og:description" content="Free local 3D-printing checks: watertight/manifold verification, overhang detection, wall thickness estimation, volume, printability report, orientation and cross sections.">
-<meta property="og:url" content="https://3dtools.example/3d-printing-tools.html">
+<meta property="og:url" content="https://3-dtools.vercel.app/3d-printing-tools.html">
 <link rel="stylesheet" href="/assets/css/style.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f7cff' d='M12 2 3 7v10l9 5 9-5V7z'/%3E%3C/svg%3E">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"3D Printing Analysis Tools — Printability, Manifold, Overhangs | 3DTools","url":"https://3dtools.example/3d-printing-tools.html","applicationCategory":"DesignApplication","operatingSystem":"Any (modern browser)","browserRequirements":"Requires WebGL","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free local 3D-printing checks: watertight/manifold verification, overhang detection, wall thickness estimation, volume, printability report, orientation and cross sections."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"3D Printing Analysis Tools — Printability, Manifold, Overhangs | 3DTools","url":"https://3-dtools.vercel.app/3d-printing-tools.html","applicationCategory":"DesignApplication","operatingSystem":"Any (modern browser)","browserRequirements":"Requires WebGL","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free local 3D-printing checks: watertight/manifold verification, overhang detection, wall thickness estimation, volume, printability report, orientation and cross sections."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What does “not watertight” mean?","acceptedAnswer":{"@type":"Answer","text":"The mesh surface has holes (boundary edges) or topology errors (non-manifold edges), so the slicer cannot reliably tell inside from outside — prints may fail or come out solid/empty incorrectly."}},{"@type":"Question","name":"Is the overhang threshold 45° always right?","acceptedAnswer":{"@type":"Answer","text":"45° is a common rule of thumb for FDM without supports. Adjust the angle in the tool; materials and printers vary."}},{"@type":"Question","name":"How accurate is the volume calculation?","acceptedAnswer":{"@type":"Answer","text":"Exact for a watertight mesh (divergence-theorem sum over triangles). If the mesh has holes the number is not meaningful."}},{"@type":"Question","name":"Does it check my specific printer volume?","acceptedAnswer":{"@type":"Answer","text":"The default check uses 220×220×250 mm. The check reports dimensions so you can compare against your own build volume."}}]}</script>
 </head>
 <body>

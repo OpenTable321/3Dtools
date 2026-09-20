@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://3dtools.example/sitemap.xml
+Sitemap: https://3-dtools.vercel.app/sitemap.xml

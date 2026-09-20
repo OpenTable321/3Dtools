@@ -1,5 +1,5 @@
 // Viewer and converter landing pages.
-export const SITE_URL = 'https://3dtools.example';
+export const SITE_URL = 'https://3-dtools.vercel.app';
 
 const REL_CONVERT = [
   ['/convert/stl-to-obj.html', 'STL to OBJ Converter', 'Turn a triangle-only STL into an OBJ with vertices, normals and groups.'],

@@ -1,6 +1,9 @@
 {
-    "$schema":  "https://openapi.vercel.sh/vercel.json",
-    "installCommand":  "npm install --omit=dev",
-    "buildCommand":  "npm run build",
-    "outputDirectory":  "."
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "installCommand": "npm install --omit=dev",
+    "buildCommand": "npm run build",
+    "outputDirectory": ".",
+    "rewrites": [
+        { "source": "/app.html/sitemap.xml", "destination": "/sitemap.xml" }
+    ]
 }
