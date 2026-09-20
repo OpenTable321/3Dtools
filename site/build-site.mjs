@@ -187,6 +187,7 @@ function render(page) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="_cO61RNkjtmNOgD7hPlizj7GaAOmBl3Q21VocD8n3ig">
 <title>${esc(page.title)}</title>
 <meta name="description" content="${esc(page.description)}">
 <link rel="canonical" href="${page.path}">
