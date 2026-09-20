@@ -252,16 +252,19 @@ Sitemap: ${SITE_URL}/sitemap.xml
 `);
 
 // sitemap.xml (app.html is hand-written, not in PAGES)
+const today = new Date().toISOString().split('T')[0];
 const urls = [...PAGES.filter(p => p.path !== '/404.html'), { path: '/app.html' }];
 const allUrls = [...urls, ...urls.filter(p => PAGES.find(pg => pg.path === p.path && pg.ru)).map(p => ({ path: '/ru' + (p.path === '/' ? '/' : p.path) }))];
-writeFileSync(join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${allUrls.map(p => `  <url>
     <loc>${SITE_URL}${p.path}</loc>
-    <changefreq>monthly</changefreq>
-    <priority>${p.path === '/' ? '1.0' : p.path === '/app.html' ? '0.9' : '0.7'}</priority>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>${p.path === '/' ? '1.0' : p.path === '/app.html' ? '0.9' : '0.8'}</priority>
   </url>`).join('\n')}
 </urlset>
-`);
+`.trim() + '\n';
+writeFileSync(join(ROOT, 'sitemap.xml'), sitemapContent);
 console.log('wrote robots.txt, sitemap.xml');
 console.log(`\nDone: ${count} pages.`);
